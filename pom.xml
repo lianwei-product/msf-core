@@ -6,7 +6,10 @@
     <modules>
         <module>dependence/msf-dependencies</module>
         <module>framework/msf-framework</module>
+        <module>framework/msf-framework-cache</module>
+        <module>framework/msf-framework-data-mongodb</module>
         <module>starter/msf-starter-parent</module>
+        <module>starter/msf-starter-data-mongodb</module>
     </modules>
 
     <groupId>cn.com.connext.msf</groupId>
