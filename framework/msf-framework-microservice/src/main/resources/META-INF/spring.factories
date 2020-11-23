@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.connext.msf.microservice.feign.FeignClientConfig,\
+  cn.com.connext.msf.microservice.actuator.ActuatorEndPointConfig,\
+  cn.com.connext.msf.microservice.zone.ServiceZoneConfig
+

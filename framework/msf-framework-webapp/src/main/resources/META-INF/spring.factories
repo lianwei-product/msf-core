@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.connext.msf.webapp.config.TimeZoneConfig,\
+  cn.com.connext.msf.webapp.config.WebApplicationConfig,\
+  cn.com.connext.msf.framework.cache.config.GlobalCacheManagerConfig,\
+  cn.com.connext.msf.framework.cache.config.GlobalCacheNotifyConfig
+

@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.connext.msf.server.timingwheel.config.TimingWheelBootstrapperConfig,\
+  cn.com.connext.msf.server.timingwheel.config.TimingWheelMongoRepositoryConfig
+

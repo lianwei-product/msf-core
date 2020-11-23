@@ -72,12 +72,12 @@
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
-                <version>2.6.1</version>
+                <version>2.7.0</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
-                <version>2.6.1</version>
+                <version>2.7.0</version>
             </dependency>
             <dependency>
                 <groupId>io.swagger</groupId>
@@ -166,7 +166,17 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-framework-server-registry</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-server-registry</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-framework-server-config</artifactId>
                 <version>${msf.version}</version>
             </dependency>
             <dependency>
@@ -216,6 +226,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-framework-server-timing-wheel</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-server-timing-wheel</artifactId>
                 <version>${msf.version}</version>
             </dependency>
@@ -226,7 +241,17 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-framework-webapp</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-webapp</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-framework-microservice</artifactId>
                 <version>${msf.version}</version>
             </dependency>
             <dependency>
