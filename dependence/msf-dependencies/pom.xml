@@ -286,6 +286,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-framework-data-jpa</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-framework-data-elasticsearch</artifactId>
                 <version>${msf.version}</version>
             </dependency>

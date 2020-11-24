@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.connext.msf.framework.cache.config.GlobalCacheManagerConfig,\
+  cn.com.connext.msf.framework.cache.config.GlobalCacheNotifyConfig

@@ -9,6 +9,7 @@
         <module>framework/msf-framework-cache</module>
         <module>framework/msf-framework-data-elasticsearch</module>
         <module>framework/msf-framework-data-mongodb</module>
+        <module>framework/msf-framework-data-jpa</module>
         <module>framework/msf-framework-server-registry</module>
         <module>framework/msf-framework-server-config</module>
         <module>framework/msf-framework-server-management</module>
@@ -16,6 +17,7 @@
         <module>framework/msf-framework-microservice</module>
         <module>framework/msf-framework-webapp</module>
         <module>starter/msf-starter-parent</module>
+        <module>starter/msf-starter-cache</module>
         <module>starter/msf-starter-data-elasticsearch</module>
         <module>starter/msf-starter-data-mongodb</module>
         <module>starter/msf-starter-data-jpa</module>

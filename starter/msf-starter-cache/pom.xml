@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>msf-starter-data-jpa</artifactId>
-    <name>Connext MSF Starter Data JPA</name>
+    <artifactId>msf-starter-cache</artifactId>
+    <name>Connext MSF Starter Cache</name>
 
     <parent>
         <groupId>cn.com.connext.msf</groupId>
@@ -16,9 +16,8 @@
     <dependencies>
         <dependency>
             <groupId>cn.com.connext.msf</groupId>
-            <artifactId>msf-framework-data-jpa</artifactId>
+            <artifactId>msf-framework-cache</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>
