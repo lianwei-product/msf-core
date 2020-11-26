@@ -22,6 +22,7 @@
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
         <spring-boot-admin.version>2.0.5</spring-boot-admin.version>
         <msf.version>3.0.0.RELEASE</msf.version>
+        <saas.version>1.0.0.RELEASE</saas.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -98,6 +99,12 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui</artifactId>
                 <version>${spring-boot-admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.11.3</version>
+                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
@@ -344,11 +351,22 @@
                 <artifactId>msf-starter-saas-notify</artifactId>
                 <version>${msf.version}</version>
             </dependency>
+
+
             <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>1.11.3</version>
-                <scope>compile</scope>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-framework</artifactId>
+                <version>${saas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-framework-log</artifactId>
+                <version>${saas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-starter-log</artifactId>
+                <version>${saas.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
