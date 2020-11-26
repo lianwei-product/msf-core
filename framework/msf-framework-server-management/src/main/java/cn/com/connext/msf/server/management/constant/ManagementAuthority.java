@@ -28,6 +28,9 @@ public class ManagementAuthority {
     public final static String MANAGEMENT_ZONE_DELETE = MANAGEMENT_ZONE + DELETE;
     public final static String MANAGEMENT_ZONE_LOCATE = MANAGEMENT_ZONE + LOCATE;
 
-    public final static String MANAGEMENT_LOG = APP + ".log";
-    public final static String MANAGEMENT_LOG_LOCATE = MANAGEMENT_LOG + LOCATE;
+    public final static String MANAGEMENT_SYSTEM_LOG = APP + ".system_log";
+    public final static String MANAGEMENT_SYSTEM_LOG_LOCATE = MANAGEMENT_SYSTEM_LOG + LOCATE;
+
+    public final static String MANAGEMENT_REQUEST_LOG = APP + ".request_log";
+    public final static String MANAGEMENT_REQUEST_LOG_LOCATE = MANAGEMENT_REQUEST_LOG + LOCATE;
 }
