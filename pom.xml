@@ -10,22 +10,28 @@
         <module>framework/msf-framework-data-elasticsearch</module>
         <module>framework/msf-framework-data-mongodb</module>
         <module>framework/msf-framework-data-jpa</module>
+        <module>framework/msf-framework-file-excel</module>
+        <module>framework/msf-framework-mail</module>
         <module>framework/msf-framework-server-registry</module>
         <module>framework/msf-framework-server-config</module>
         <module>framework/msf-framework-server-management</module>
         <module>framework/msf-framework-server-timing-wheel</module>
         <module>framework/msf-framework-microservice</module>
+        <module>framework/msf-framework-saas-notify</module>
         <module>framework/msf-framework-webapp</module>
         <module>starter/msf-starter-parent</module>
         <module>starter/msf-starter-cache</module>
         <module>starter/msf-starter-data-elasticsearch</module>
         <module>starter/msf-starter-data-mongodb</module>
         <module>starter/msf-starter-data-jpa</module>
+        <module>starter/msf-starter-file-excel</module>
+        <module>starter/msf-starter-mail</module>
         <module>starter/msf-starter-server-registry</module>
         <module>starter/msf-starter-server-config</module>
         <module>starter/msf-starter-server-management</module>
         <module>starter/msf-starter-server-timing-wheel</module>
         <module>starter/msf-starter-microservice</module>
+        <module>starter/msf-starter-saas-notify</module>
         <module>starter/msf-starter-webapp</module>
     </modules>
 
