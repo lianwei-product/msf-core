@@ -17,6 +17,7 @@ import java.util.List;
 public class GlobalCacheManagerConfig {
 
     @Bean
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     public CacheManager cacheManager(@Autowired(required = false) List<AutoExpireCache> cacheList) {
         return new ConnextCacheManager(cacheList);
     }

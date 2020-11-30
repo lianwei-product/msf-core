@@ -7,10 +7,26 @@ public interface AutoExpireCache extends ClearableCache {
      */
     int getMaximumSize();
 
+    /**
+     * @return 缓存写入后过期时间（指定秒数）
+     */
+    default int getExpireAfterWrite() {
+        return 0;
+    }
 
     /**
-     * @return 缓存过期时间（指定秒数）
+     * @return 缓存读取后过期时间（指定秒数）
      */
-    int getExpireAfterWrite();
+    default int getExpireAfterAccess() {
+        return 0;
+    }
 
+    /**
+     * @return 是否使用expireAfterAccess过期方式
+     * False: expireAfterAccess(访问后隔断时间过期)
+     * True: expireAfterWrite(写入后隔段时间过期）
+     */
+    default boolean isExpireAfterAccessMode() {
+        return false;
+    }
 }
