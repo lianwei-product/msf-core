@@ -38,9 +38,9 @@ public class RestHighLevelClientBuilder {
         RestClientBuilder restClientBuilder = RestClient.builder(httpHostArray);
 
         restClientBuilder.setRequestConfigCallback(requestConfigBuilder -> {
-            requestConfigBuilder.setConnectTimeout(5000);
+            requestConfigBuilder.setConnectTimeout(15000);
             requestConfigBuilder.setSocketTimeout(5 * 60000);
-            requestConfigBuilder.setConnectionRequestTimeout(3000);
+            requestConfigBuilder.setConnectionRequestTimeout(30000);
             return requestConfigBuilder;
         });
 

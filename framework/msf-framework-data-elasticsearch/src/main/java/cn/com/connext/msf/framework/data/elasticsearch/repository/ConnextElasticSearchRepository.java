@@ -11,6 +11,7 @@ import cn.com.connext.msf.framework.query.Scroll;
 import cn.com.connext.msf.framework.utils.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.template.delete.DeleteIndexTemplateRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -24,11 +25,14 @@ import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.core.CountRequest;
+import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.client.indices.*;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -41,13 +45,14 @@ import org.elasticsearch.search.aggregations.bucket.nested.ParsedNested;
 import org.elasticsearch.search.aggregations.bucket.nested.ParsedReverseNested;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedTerms;
-import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.ParsedCardinality;
 import org.elasticsearch.search.aggregations.metrics.ParsedSingleValueNumericMetricsAggregation;
 import org.elasticsearch.search.aggregations.metrics.ParsedValueCount;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
+import org.elasticsearch.search.sort.NestedSortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -287,7 +292,13 @@ public class ConnextElasticSearchRepository {
 
         if (sort != null) {
             for (Sort.Order order : sort) {
-                sourceBuilder.sort(order.getProperty(), order.getDirection().isDescending() ? SortOrder.DESC : SortOrder.ASC);
+                String nestedPath = NestedPath.getNestedPath(order.getProperty());
+                SortOrder sortOrder = order.getDirection().isDescending() ? SortOrder.DESC : SortOrder.ASC;
+                if (StringUtils.isNotEmpty(nestedPath)) {
+                    sourceBuilder.sort(SortBuilders.fieldSort(order.getProperty()).order(sortOrder).setNestedSort(new NestedSortBuilder(nestedPath)));
+                } else {
+                    sourceBuilder.sort(order.getProperty(), sortOrder);
+                }
             }
         }
 
@@ -333,26 +344,31 @@ public class ConnextElasticSearchRepository {
     }
 
     public <T> List<T> bulkFindItem(String index, List<String> idList, Class<T> objectClass) {
-        MultiGetRequest request = new MultiGetRequest();
-        for (String id : idList) {
-            request.add(new MultiGetRequest.Item(index, id));
-        }
-
-        MultiGetResponse response;
         try {
-            response = client.mget(request, options);
-        } catch (IOException e) {
-            throw new RuntimeException("Bulk find document from elasticSearch error.", e);
-        }
-
-        List<T> list = Lists.newArrayList();
-        for (int i = 0; i < response.getResponses().length; i++) {
-            MultiGetItemResponse itemResponse = response.getResponses()[i];
-            if (itemResponse.getResponse().isExists()) {
-                list.add(JSON.parseObject(itemResponse.getResponse().getSourceAsString(), objectClass));
+            MultiGetRequest request = new MultiGetRequest();
+            for (String id : idList) {
+                request.add(new MultiGetRequest.Item(index, id));
             }
+
+            MultiGetResponse response;
+//            try {
+            response = client.mget(request, options);
+//            } catch (IOException e) {
+//                throw new RuntimeException("Bulk find document from elasticSearch error.", e);
+//            }
+
+            List<T> list = Lists.newArrayList();
+            for (int i = 0; i < response.getResponses().length; i++) {
+                MultiGetItemResponse itemResponse = response.getResponses()[i];
+                if (itemResponse.getResponse().isExists()) {
+                    list.add(JSON.parseObject(itemResponse.getResponse().getSourceAsString(), objectClass));
+                }
+            }
+            return list;
+        } catch (Exception ex) {
+            logger.error("Bulk find document from elasticSearch error.", ex);
+            throw new RuntimeException("Bulk find document from elasticSearch error.", ex);
         }
-        return list;
     }
 
     public <T> Scroll<T> findScroll(String index, String[] fields, int scrollSize, Sort sort, QueryBuilder queryBuilder, Class<T> objectClass) {
@@ -511,6 +527,14 @@ public class ConnextElasticSearchRepository {
         }
         logger.debug("执行结果：{}", JSON.toJsonString(aggregationReport));
         return aggregationReport;
+    }
+
+    public SearchResponse search(SearchRequest request) {
+        try {
+            return client.search(request, options);
+        } catch (IOException e) {
+            throw new RuntimeException("Bulk find document from elasticSearch error.", e);
+        }
     }
 
     private AggregationTable buildDateAggregationTable(AggregationQuery aggregationQuery, Aggregations aggregations) {
@@ -703,6 +727,19 @@ public class ConnextElasticSearchRepository {
             client.indices().deleteTemplate(request, options);
         } catch (Exception e) {
             throw new RuntimeException("Delete index template error.", e);
+        }
+    }
+
+    public CountResponse count(String index) {
+        CountRequest request = new CountRequest(index);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+        request.source(searchSourceBuilder);
+
+        try {
+            return client.count(request, options);
+        } catch (Exception e) {
+            throw new RuntimeException("Count document from elasticSearch error.", e);
         }
     }
 

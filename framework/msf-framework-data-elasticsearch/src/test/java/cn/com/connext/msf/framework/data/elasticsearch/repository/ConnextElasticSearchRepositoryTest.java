@@ -19,6 +19,7 @@ import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.client.indices.GetIndexTemplatesResponse;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -315,7 +316,7 @@ public class ConnextElasticSearchRepositoryTest {
         Assert.assertEquals(false, result);
     }
 
-//    @Test
+    //    @Test
     public void test_agg2() {
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
 
@@ -397,5 +398,35 @@ public class ConnextElasticSearchRepositoryTest {
         ObjectNode memberNode = repository.findItem(indexName, "member00001", null, ObjectNode.class);
         logger.info(JSON.toIndentJsonString(memberNode));
         Assert.assertEquals(memberNode.get("memberId").asText(), "member00001");
+    }
+
+    @Test
+    public void test_template_findItem() {
+        String indexName = "cdp_connext_bu_test_customer";
+
+        CountResponse response = repository.count(indexName);
+        logger.info(String.valueOf(response.getCount()));
+
+        indexName = "cdp_connext_bu_test_*";
+
+        response = repository.count(indexName);
+        logger.info(String.valueOf(response.getCount()));
+
+    }
+
+    @Test
+    public void test_count() {
+        String indexName = "cdp_connext_time_sequence_order-*";
+
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        queryBuilder.should(QueryBuilders.termQuery("cdp_id", "10001"));
+
+
+        List<ObjectNode> objectList = repository.findList(indexName, null, PageRequest.of(0, 1), queryBuilder, ObjectNode.class);
+
+        logger.info(JSON.toIndentJsonString(objectList));
+
+        ObjectNode memberNode = repository.findItem(indexName, "10001", null, ObjectNode.class);
+        logger.info(JSON.toIndentJsonString(memberNode));
     }
 }
