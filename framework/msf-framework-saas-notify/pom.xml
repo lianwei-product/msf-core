@@ -11,7 +11,7 @@
         <groupId>cn.com.connext.msf</groupId>
         <artifactId>msf-dependencies</artifactId>
         <version>3.0.0.RELEASE</version>
-        <relativePath>../msf-dependencies/pom.xml</relativePath>
+        <relativePath>../../dependence/msf-dependencies/pom.xml</relativePath>
     </parent>
 
     <dependencies>
