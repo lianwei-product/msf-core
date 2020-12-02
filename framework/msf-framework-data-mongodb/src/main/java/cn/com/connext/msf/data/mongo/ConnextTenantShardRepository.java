@@ -46,6 +46,15 @@ public abstract class ConnextTenantShardRepository<T, ID extends Serializable> e
         return update(shardCode, queryInfo, update);
     }
 
+    public long updateMulti(String tenantId, String buCode, Query query, Update update) {
+        String shardCode = getShardCode(tenantId, buCode);
+        return updateMulti(shardCode, query, update);
+    }
+
+    public long updateMulti(String tenantId, String buCode, QueryInfo queryInfo, Update update) {
+        String shardCode = getShardCode(tenantId, buCode);
+        return updateMulti(shardCode, queryInfo, update);
+    }
 
     public long upsert(String tenantId, String buCode, Query query, Update update) {
         String shardCode = getShardCode(tenantId, buCode);

@@ -7,9 +7,11 @@ import cn.com.connext.msf.framework.query.*;
 import cn.com.connext.msf.framework.utils.Time;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.Decimal128;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -163,6 +165,10 @@ public class QueryBuilder {
             case "java.util.List":
                 return Criteria.where(fieldName).in(fieldValue);
 
+            case "java.math.BigDecimal":
+            case "BigDecimal":
+                return Criteria.where(fieldName).is(new Decimal128(new BigDecimal(fieldValue)));
+
         }
 
         throw new RuntimeException(MessageFormat.format("Invalid query type, {0} type not support. ", fieldType));
@@ -211,6 +217,10 @@ public class QueryBuilder {
 
             case "java.util.List":
                 return Criteria.where(fieldName).nin(fieldValue);
+
+            case "java.math.BigDecimal":
+            case "BigDecimal":
+                return Criteria.where(fieldName).ne(new Decimal128(new BigDecimal(fieldValue)));
         }
 
         throw new RuntimeException(MessageFormat.format("Invalid query type, {0} type not support. ", fieldType));
@@ -271,10 +281,16 @@ public class QueryBuilder {
             case "java.util.Date":
             case "java.sql.Date":
                 return Criteria.where(fieldName).gt(Time.parseDate(fieldValue));
+
             case "java.time.LocalDate":
                 return Criteria.where(fieldName).gt(LocalDate.parse(fieldValue));
+
             case "java.time.ZonedDateTime":
                 return Criteria.where(fieldName).gt(ZonedDateTime.parse(fieldValue));
+
+            case "java.math.BigDecimal":
+            case "BigDecimal":
+                return Criteria.where(fieldName).gt(new Decimal128(new BigDecimal(fieldValue)));
 
         }
 
@@ -317,10 +333,16 @@ public class QueryBuilder {
             case "java.util.Date":
             case "java.sql.Date":
                 return Criteria.where(fieldName).gte(Time.parseDate(fieldValue));
+
             case "java.time.LocalDate":
                 return Criteria.where(fieldName).gte(LocalDate.parse(fieldValue));
+
             case "java.time.ZonedDateTime":
                 return Criteria.where(fieldName).gte(ZonedDateTime.parse(fieldValue));
+
+            case "java.math.BigDecimal":
+            case "BigDecimal":
+                return Criteria.where(fieldName).gte(new Decimal128(new BigDecimal(fieldValue)));
 
         }
 
@@ -363,10 +385,16 @@ public class QueryBuilder {
             case "java.util.Date":
             case "java.sql.Date":
                 return Criteria.where(fieldName).lt(Time.parseDate(fieldValue));
+
             case "java.time.LocalDate":
                 return Criteria.where(fieldName).lt(LocalDate.parse(fieldValue));
+
             case "java.time.ZonedDateTime":
                 return Criteria.where(fieldName).lt(ZonedDateTime.parse(fieldValue));
+
+            case "java.math.BigDecimal":
+            case "BigDecimal":
+                return Criteria.where(fieldName).lt(new Decimal128(new BigDecimal(fieldValue)));
 
         }
 
@@ -409,10 +437,16 @@ public class QueryBuilder {
             case "java.util.Date":
             case "java.sql.Date":
                 return Criteria.where(fieldName).lte(Time.parseDate(fieldValue));
+
             case "java.time.LocalDate":
                 return Criteria.where(fieldName).lte(LocalDate.parse(fieldValue));
+
             case "java.time.ZonedDateTime":
                 return Criteria.where(fieldName).lte(ZonedDateTime.parse(fieldValue));
+
+            case "java.math.BigDecimal":
+            case "BigDecimal":
+                return Criteria.where(fieldName).lte(new Decimal128(new BigDecimal(fieldValue)));
 
         }
 
@@ -475,6 +509,10 @@ public class QueryBuilder {
 
             case "java.lang.String":
                 return fieldValue;
+
+            case "java.math.BigDecimal":
+            case "BigDecimal":
+                return new Decimal128(new BigDecimal(fieldValue));
         }
         throw new RuntimeException(MessageFormat.format("Invalid query type, {0} type not support. ", fieldType));
     }

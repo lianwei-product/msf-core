@@ -142,6 +142,19 @@ public abstract class ConnextShardRepository<T, ID extends Serializable> {
         return mongoOperations.updateFirst(query, update, entityClass, collectionName).getModifiedCount();
     }
 
+    public long updateMulti(String shardCode, QueryInfo queryInfo, Update update) {
+        MongoOperations mongoOperations = getMongoOperations(shardCode);
+        String collectionName = getCollectionName(shardCode);
+        Query query = QueryBuilder.build(entityClass, queryInfo);
+        return mongoOperations.updateMulti(query, update, entityClass, collectionName).getModifiedCount();
+    }
+
+    public long updateMulti(String shardCode, Query query, Update update) {
+        MongoOperations mongoOperations = getMongoOperations(shardCode);
+        String collectionName = getCollectionName(shardCode);
+        return mongoOperations.updateMulti(query, update, entityClass, collectionName).getModifiedCount();
+    }
+
     public long upsert(String shardCode, Query query, Update update) {
         MongoOperations mongoOperations = getMongoOperations(shardCode);
         String collectionName = getCollectionName(shardCode);
