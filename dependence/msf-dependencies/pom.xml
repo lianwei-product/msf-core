@@ -384,7 +384,7 @@
 
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-framework</artifactId>
+                <artifactId>saas-framework-saas-core</artifactId>
                 <version>${saas.version}</version>
             </dependency>
             <dependency>
@@ -409,12 +409,22 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-framework-uaa-service-mq</artifactId>
+                <version>${saas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
                 <artifactId>saas-starter-log</artifactId>
                 <version>${saas.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
                 <artifactId>saas-starter-uaa-service-mongo</artifactId>
+                <version>${saas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-starter-uaa-service-mq</artifactId>
                 <version>${saas.version}</version>
             </dependency>
         </dependencies>
