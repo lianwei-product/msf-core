@@ -1,8 +1,8 @@
 package cn.com.connext.msf.framework.dynamic.builder;
 
-import cn.com.connext.msf.framework.dynamic.CommonModel;
 import cn.com.connext.msf.framework.dynamic.CommonModelField;
 import cn.com.connext.msf.framework.dynamic.DynamicModelFieldType;
+import cn.com.connext.msf.framework.dynamic.CommonModel;
 import cn.com.connext.msf.framework.utils.Base58UUID;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;

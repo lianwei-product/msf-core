@@ -1,7 +1,6 @@
 package cn.com.connext.msf.framework.notify.model;
 
 import cn.com.connext.msf.framework.notify.constant.DingtalkMessageType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

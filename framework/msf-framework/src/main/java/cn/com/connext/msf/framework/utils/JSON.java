@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class JSON {
@@ -54,12 +55,20 @@ public class JSON {
         }
     }
 
+    public static ObjectNode createObjectNode() {
+        return OBJECT_MAPPER.createObjectNode();
+    }
+
     public static <T> ObjectNode toObjectNode(T t) {
         return JSON.parseObject(JSON.toJsonString(t), ObjectNode.class);
     }
 
     public static <T> ArrayNode toArrayNode(T t) {
         return JSON.parseObject(JSON.toJsonString(t), ArrayNode.class);
+    }
+
+    public static Map<String, Object> toMap(JsonNode jsonNode) {
+        return OBJECT_MAPPER.convertValue(jsonNode, Map.class);
     }
 
     public static <T> T parseObject(JsonNode node, Class<T> valueType) {

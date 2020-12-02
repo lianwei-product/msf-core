@@ -39,6 +39,6 @@ public class QueryOperators {
 
     public final static Set<String> KEYWORD_OPERATORS = new HashSet<>(Arrays.asList(EQ, NE, EMPTY));
     public final static Set<String> TEXT_OPERATORS = new HashSet<>(Arrays.asList(EQ, NE, LIKE, EMPTY));
-    public final static Set<String> NUMBER_OPERATORS = new HashSet<>(Arrays.asList(EQ, NE, GT, GE, LT, LE));
-    public final static Set<String> DATE_OPERATORS = new HashSet<>(Arrays.asList(EQ, NE, GT, GE, LT, LE, BF, AF, MONTH_PERIOD, DATE_RANGE));
+    public final static Set<String> NUMBER_OPERATORS = new HashSet<>(Arrays.asList(EQ, NE, GT, GE, LT, LE, EMPTY));
+    public final static Set<String> DATE_OPERATORS = new HashSet<>(Arrays.asList(EQ, NE, GT, GE, LT, LE, BF, AF, MONTH_PERIOD, DATE_RANGE, EMPTY));
 }
