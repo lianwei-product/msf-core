@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.connext.msf.apimetrics.config.ApiMetricsConfig,\
+  cn.com.connext.msf.apimetrics.filter.ServletFilterConfig,\
+  cn.com.connext.msf.apimetrics.filter.ZuulFilterConfig

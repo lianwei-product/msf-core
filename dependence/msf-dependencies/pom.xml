@@ -152,26 +152,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-framework-uaa-core</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-framework-uaa-service</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-framework-uaa-service-mongo</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-framework-uaa-service-mq</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-framework-cache</artifactId>
                 <version>${msf.version}</version>
             </dependency>
@@ -233,16 +213,6 @@
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-uaa-service-mq</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-framework-saas-core</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-starter-saas-core</artifactId>
                 <version>${msf.version}</version>
             </dependency>
             <dependency>
@@ -347,11 +317,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-framework-log</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-data-postgresql</artifactId>
                 <version>${msf.version}</version>
             </dependency>
@@ -368,11 +333,6 @@
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-mail</artifactId>
-                <version>${msf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-starter-log</artifactId>
                 <version>${msf.version}</version>
             </dependency>
             <dependency>
@@ -425,6 +385,11 @@
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
                 <artifactId>saas-starter-uaa-service-mq</artifactId>
+                <version>${saas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-starter-saas-core</artifactId>
                 <version>${saas.version}</version>
             </dependency>
         </dependencies>

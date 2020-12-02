@@ -1,0 +1,16 @@
+<included>
+    <springProperty name="appName" source="msf.application.name"/>
+    <springProperty name="logstash_host" source="msf.logstash"/>
+
+    <appender name="REQUEST_TRACE" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${logstash_host}</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app_name":"${appName}","request_trace":"true"}</customFields>
+        </encoder>
+    </appender>
+
+    <logger name="RequestTrace" level="INFO" additivity="false">
+        <appender-ref ref="REQUEST_TRACE" />
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</included>

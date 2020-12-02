@@ -1,0 +1,57 @@
+{
+  "index_patterns": "request-trace-*",
+  "order": 1,
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas" : 0
+  },
+  "mappings": {
+    "properties": {
+      "trace_id": {
+        "type": "keyword"
+      },
+      "span_id": {
+        "type": "keyword"
+      },
+      "parent_span_id": {
+        "type": "keyword"
+      },
+      "tenant_id": {
+        "type": "keyword"
+      },
+      "bu_code": {
+        "type": "keyword"
+      },
+      "user_id": {
+        "type": "keyword"
+      },
+      "request_uri": {
+        "type": "text"
+      },
+      "remote_addr": {
+        "type": "text"
+      },
+      "real_ip": {
+        "type": "keyword"
+      },
+      "path": {
+        "type": "keyword"
+      },
+      "method": {
+        "type": "keyword"
+      },
+      "trace_level": {
+        "type": "keyword"
+      },
+      "time_took": {
+        "type": "long"
+      },
+      "request_parameters": {
+        "type": "text"
+      },
+      "request_body": {
+        "type": "text"
+      }
+    }
+  }
+}
