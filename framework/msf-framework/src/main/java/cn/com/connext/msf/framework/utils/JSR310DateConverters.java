@@ -21,7 +21,7 @@ public final class JSR310DateConverters {
     @WritingConverter
     public static class LocalDateToDateConverter implements Converter<LocalDate, Date> {
 
-        public static final JSR310DateConverters.LocalDateToDateConverter INSTANCE = new JSR310DateConverters.LocalDateToDateConverter();
+        public static final LocalDateToDateConverter INSTANCE = new LocalDateToDateConverter();
 
         private LocalDateToDateConverter() {
         }
@@ -35,7 +35,7 @@ public final class JSR310DateConverters {
     @ReadingConverter
     public static class DateToLocalDateConverter implements Converter<Date, LocalDate> {
 
-        public static final JSR310DateConverters.DateToLocalDateConverter INSTANCE = new JSR310DateConverters.DateToLocalDateConverter();
+        public static final DateToLocalDateConverter INSTANCE = new DateToLocalDateConverter();
 
         private DateToLocalDateConverter() {
         }
@@ -50,7 +50,7 @@ public final class JSR310DateConverters {
     @WritingConverter
     public static class ZonedDateTimeToDateConverter implements Converter<ZonedDateTime, Date> {
 
-        public static final JSR310DateConverters.ZonedDateTimeToDateConverter INSTANCE = new JSR310DateConverters.ZonedDateTimeToDateConverter();
+        public static final ZonedDateTimeToDateConverter INSTANCE = new ZonedDateTimeToDateConverter();
 
         private ZonedDateTimeToDateConverter() {
         }
@@ -64,7 +64,7 @@ public final class JSR310DateConverters {
     @ReadingConverter
     public static class DateToZonedDateTimeConverter implements Converter<Date, ZonedDateTime> {
 
-        public static final JSR310DateConverters.DateToZonedDateTimeConverter INSTANCE = new JSR310DateConverters.DateToZonedDateTimeConverter();
+        public static final DateToZonedDateTimeConverter INSTANCE = new DateToZonedDateTimeConverter();
 
         private DateToZonedDateTimeConverter() {
         }
@@ -78,7 +78,7 @@ public final class JSR310DateConverters {
     @WritingConverter
     public static class LocalDateTimeToDateConverter implements Converter<LocalDateTime, Date> {
 
-        public static final JSR310DateConverters.LocalDateTimeToDateConverter INSTANCE = new JSR310DateConverters.LocalDateTimeToDateConverter();
+        public static final LocalDateTimeToDateConverter INSTANCE = new LocalDateTimeToDateConverter();
 
         private LocalDateTimeToDateConverter() {
         }
@@ -92,7 +92,7 @@ public final class JSR310DateConverters {
     @ReadingConverter
     public static class DateToLocalDateTimeConverter implements Converter<Date, LocalDateTime> {
 
-        public static final JSR310DateConverters.DateToLocalDateTimeConverter INSTANCE = new JSR310DateConverters.DateToLocalDateTimeConverter();
+        public static final DateToLocalDateTimeConverter INSTANCE = new DateToLocalDateTimeConverter();
 
         private DateToLocalDateTimeConverter() {
         }

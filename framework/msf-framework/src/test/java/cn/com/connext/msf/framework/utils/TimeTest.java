@@ -150,37 +150,50 @@ public class TimeTest {
 
     @Test
     public void getRelativeTime1() {
+        System.out.println("相对时间大于 过去 1天");
         LocalDateTime localDateTime = Time.getRelativeTime("-1d", QueryOperators.AF);
         System.out.println(localDateTime);
+        System.out.println("相对时间小于 过去 1天");
         localDateTime = Time.getRelativeTime("-1d", QueryOperators.BF);
         System.out.println(localDateTime);
 
+        System.out.println();
+        System.out.println("相对时间大于 过去 1整天");
         localDateTime = Time.getRelativeTime("!-1d", QueryOperators.AF);
         System.out.println(localDateTime);
+        System.out.println("相对时间小于 过去 1整天");
         localDateTime = Time.getRelativeTime("!-1d", QueryOperators.BF);
         System.out.println(localDateTime);
 
         System.out.println();
+        System.out.println("相对时间大于 过去 1月");
         localDateTime = Time.getRelativeTime("-1M", QueryOperators.AF);
         System.out.println(localDateTime);
+        System.out.println("相对时间小于 过去 1月");
         localDateTime = Time.getRelativeTime("-1M", QueryOperators.BF);
         System.out.println(localDateTime);
 
         System.out.println();
+        System.out.println("相对时间大于 过去 1整月");
         localDateTime = Time.getRelativeTime("!-1M", QueryOperators.AF);
         System.out.println(localDateTime);
+        System.out.println("相对时间小于 过去 1整月");
         localDateTime = Time.getRelativeTime("!-1M", QueryOperators.BF);
         System.out.println(localDateTime);
 
         System.out.println();
+        System.out.println("相对时间大于 过去 1年");
         localDateTime = Time.getRelativeTime("-1y", QueryOperators.AF);
         System.out.println(localDateTime);
+        System.out.println("相对时间小于 过去 1年");
         localDateTime = Time.getRelativeTime("-1y", QueryOperators.BF);
         System.out.println(localDateTime);
 
         System.out.println();
+        System.out.println("相对时间大于 过去 1整年");
         localDateTime = Time.getRelativeTime("!-1y", QueryOperators.AF);
         System.out.println(localDateTime);
+        System.out.println("相对时间小于 过去 1整年");
         localDateTime = Time.getRelativeTime("!-1y", QueryOperators.BF);
         System.out.println(localDateTime);
 
@@ -581,5 +594,11 @@ public class TimeTest {
         Date currentTime = new Date();
         System.out.println(Time.getTimeFormatString(currentTime,"yyyy.MM.dd"));
         System.out.println(Time.getTimeFormatString(currentTime,"yyyy.MM"));
+    }
+
+    @Test
+    public void testGetTimeFormatString() throws Exception {
+        System.out.println(Time.getTimeFormatString( Time.parseDate("2020-09-02T10:28:46")));
+        System.out.println(Time.getTimeFormatString(Time.parseDate("2020-09-02T11:48:51.632+08:00")));
     }
 }

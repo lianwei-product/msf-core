@@ -1,7 +1,5 @@
 package cn.com.connext.msf.framework.jwt;
 
-import cn.com.connext.msf.framework.jwt.GlobalJwtConstant;
-
 import javax.servlet.http.Cookie;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
