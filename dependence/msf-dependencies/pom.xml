@@ -162,7 +162,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-framework-saas-notify</artifactId>
+                <artifactId>msf-framework-server-notify</artifactId>
                 <version>${msf.version}</version>
             </dependency>
             <dependency>
@@ -337,7 +337,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
-                <artifactId>msf-starter-saas-notify</artifactId>
+                <artifactId>msf-starter-server-notify</artifactId>
                 <version>${msf.version}</version>
             </dependency>
 

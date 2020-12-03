@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>msf-framework-server-notify</artifactId>
+    <name>Connext MSF Framework Server Notify</name>
+
+    <parent>
+        <groupId>cn.com.connext.msf</groupId>
+        <artifactId>msf-dependencies</artifactId>
+        <version>3.0.0.RELEASE</version>
+        <relativePath>../../dependence/msf-dependencies/pom.xml</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.com.connext.msf</groupId>
+            <artifactId>msf-framework</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.com.connext.msf</groupId>
+            <artifactId>msf-starter-webapp</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.connext.msf</groupId>
+            <artifactId>msf-starter-mail</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

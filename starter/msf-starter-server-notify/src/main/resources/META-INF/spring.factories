@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.connext.msf.framework.server.notify.config.SaasNotifyConfig
+

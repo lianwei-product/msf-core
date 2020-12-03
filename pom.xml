@@ -19,7 +19,7 @@
         <module>framework/msf-framework-server-management</module>
         <module>framework/msf-framework-server-timing-wheel</module>
         <module>framework/msf-framework-microservice</module>
-        <module>framework/msf-framework-saas-notify</module>
+        <module>framework/msf-framework-server-notify</module>
         <module>framework/msf-framework-webapp</module>
         <module>starter/msf-starter-parent</module>
         <module>starter/msf-starter-api-metrics</module>
@@ -35,7 +35,7 @@
         <module>starter/msf-starter-server-management</module>
         <module>starter/msf-starter-server-timing-wheel</module>
         <module>starter/msf-starter-microservice</module>
-        <module>starter/msf-starter-saas-notify</module>
+        <module>starter/msf-starter-server-notify</module>
         <module>starter/msf-starter-webapp</module>
     </modules>
 
