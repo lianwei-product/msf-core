@@ -1,6 +1,11 @@
 package cn.com.connext.msf.framework.dynamic;
 
+import cn.com.connext.msf.framework.utils.JsonNodeLoader;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -12,6 +17,8 @@ public class CommonModelField implements DynamicModelField {
     private DynamicModelFieldType type;
     private boolean arrayType;
     private List<CommonModelField> fields;
+    public String defaultValue;
+    public boolean allowNull;
 
     public CommonModelField() {
 
@@ -56,4 +63,39 @@ public class CommonModelField implements DynamicModelField {
     public void setFields(List<CommonModelField> fields) {
         this.fields = fields;
     }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+
+    public void setAllowNull(boolean allowNull) {
+        this.allowNull = allowNull;
+    }
+
+    @Override
+    public boolean isAllowNull() {
+        return allowNull;
+    }
+
+    @Override
+    public JsonNode loadDefaultJsonNode() {
+        if (StringUtils.isEmpty(this.getDefaultValue())) {
+            return null;
+        } else {
+            JsonNode defaultNode = JsonNodeLoader.loadJsonNodeFromString(this.getType(), this.getDefaultValue());
+            if (this.isArrayType()) {
+                ArrayNode arrayNode = JsonNodeFactory.instance.arrayNode();
+                arrayNode.add(defaultNode);
+                return arrayNode;
+            } else {
+                return defaultNode;
+            }
+        }
+    }
+
 }

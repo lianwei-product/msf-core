@@ -1,11 +1,13 @@
 package cn.com.connext.msf.framework.dynamic.builder;
 
+import cn.com.connext.msf.framework.annotation.Default;
 import cn.com.connext.msf.framework.dynamic.DynamicModel;
 import cn.com.connext.msf.framework.dynamic.DynamicModelFieldType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -76,6 +78,21 @@ public abstract class DynamicModelBuilder {
             }
         }
         return field.getType();
+    }
+
+    protected boolean isAllowNull(Field field) {
+        NotNull notNull = field.getDeclaredAnnotation(NotNull.class);
+        ApiModelProperty apiModelProperty = field.getDeclaredAnnotation(ApiModelProperty.class);
+
+        if (null != notNull || (null != apiModelProperty && apiModelProperty.required())) {
+            return false;
+        }
+        return true;
+    }
+
+    protected String getDefault(Field field) {
+        Default annotation = field.getDeclaredAnnotation(Default.class);
+        return annotation == null ? "" : annotation.value();
     }
 
 }
