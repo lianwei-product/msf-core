@@ -1,5 +1,7 @@
 package cn.com.connext.msf.framework.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
@@ -11,6 +13,10 @@ public class Base58UUID {
     public static String newBase58UUID() {
         UUID uuid = UUID.randomUUID();
         return convertFromUUID(uuid);
+    }
+
+    public static String newRawUUID() {
+        return StringUtils.replace(UUID.randomUUID().toString(), "-", "");
     }
 
     public static String convertFromUUID(UUID uuid) {
