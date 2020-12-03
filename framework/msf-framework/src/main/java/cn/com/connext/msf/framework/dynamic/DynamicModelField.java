@@ -1,5 +1,7 @@
 package cn.com.connext.msf.framework.dynamic;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.List;
 
 public interface DynamicModelField<S extends DynamicModelField> {
@@ -29,12 +31,12 @@ public interface DynamicModelField<S extends DynamicModelField> {
      */
     List<S> getFields();
 
-//    /**
-//     * 获取默认node
-//     */
-//    default JsonNode loadDefaultJsonNode() {
-//        return null;
-//    }
+    /**
+     * 获取默认node
+     */
+    default JsonNode loadDefaultJsonNode() {
+        return null;
+    }
 
     /**
      * 字段是否允许为空，默认true可为空，
