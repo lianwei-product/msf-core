@@ -51,7 +51,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        CommonModel commonModel = CommonModelBuilder.build(Member02.class);
+        CommonMappingModel commonModel = CommonMappingModelBuilder.build(Member02.class);
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -253,7 +253,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        CommonModel commonModel = CommonModelBuilder.build(Member04.class);
+        CommonMappingModel commonModel = CommonMappingModelBuilder.build(Member04.class);
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -274,7 +274,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        CommonModel commonModel = CommonModelBuilder.build(Member04.class);
+        CommonMappingModel commonModel = CommonMappingModelBuilder.build(Member04.class);
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
