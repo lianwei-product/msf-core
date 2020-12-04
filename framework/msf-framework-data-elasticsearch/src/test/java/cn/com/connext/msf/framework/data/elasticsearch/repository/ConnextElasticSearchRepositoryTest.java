@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -41,16 +42,19 @@ import org.springframework.data.domain.Sort;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ConnextElasticSearchRepositoryTest {
 
     private final Logger logger = LoggerFactory.getLogger(ConnextElasticSearchRepositoryTest.class);
     private final String indexName = "demo";
+    private final String indexName2 = "demo2";
     private final ConnextElasticSearchRepository repository;
     private final int testDataCount = 30;
     private final String templateName = "template_demo";
     private final String templatePattern = "demo_template*";
+    private final DemoMemberBuilder memberBuilder;
 
     public ConnextElasticSearchRepositoryTest() {
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -59,13 +63,13 @@ public class ConnextElasticSearchRepositoryTest {
 
         RestHighLevelClient restHighLevelClient = RestHighLevelClientBuilder.build("192.168.0.10", 9200);
         repository = new ConnextElasticSearchRepository(restHighLevelClient, RequestOptions.DEFAULT);
+        memberBuilder = new DemoMemberBuilder();
     }
 
     @Test
     public void test01_save() {
         repository.deleteIndex(indexName);
         repository.ensureIndex(indexName, DemoMappingBuilder.build());
-        DemoMemberBuilder memberBuilder = new DemoMemberBuilder();
         for (int i = 1; i <= testDataCount; i++) {
             ObjectNode member = memberBuilder.build(i);
             String memberId = member.get("memberId").asText(null);
@@ -73,6 +77,9 @@ public class ConnextElasticSearchRepositoryTest {
             logger.info(content);
             repository.save(indexName, memberId, content);
         }
+
+        repository.deleteIndex(indexName2);
+        repository.ensureIndex(indexName2, DemoMappingBuilder.build2());
     }
 
     @Test
@@ -92,7 +99,6 @@ public class ConnextElasticSearchRepositoryTest {
 
     @Test
     public void test03_delete() {
-        DemoMemberBuilder memberBuilder = new DemoMemberBuilder();
         ObjectNode member = memberBuilder.build(10000);
         String memberId = "member10000";
 
@@ -259,7 +265,6 @@ public class ConnextElasticSearchRepositoryTest {
 
     @Test
     public void test_deleteByQuery() {
-        DemoMemberBuilder memberBuilder = new DemoMemberBuilder();
         ObjectNode member = memberBuilder.build(10001);
         String memberId = "member10001";
 
@@ -289,7 +294,6 @@ public class ConnextElasticSearchRepositoryTest {
 
     @Test
     public void test_bulkDelete() {
-        DemoMemberBuilder memberBuilder = new DemoMemberBuilder();
         ObjectNode member = memberBuilder.build(10003);
         String memberId = "member10003";
 
@@ -354,7 +358,6 @@ public class ConnextElasticSearchRepositoryTest {
     @Test
     public void test_provide_data_by_template() {
         String indexName = "demo_template-2020.01";
-        DemoMemberBuilder memberBuilder = new DemoMemberBuilder();
         ObjectNode member = memberBuilder.build(1);
         String memberId = member.get("memberId").asText(null);
         String content = member.toString();
@@ -371,7 +374,6 @@ public class ConnextElasticSearchRepositoryTest {
         repository.putTemplate(templateName, Arrays.asList(templatePattern), DemoMappingBuilder.build2());
 
         String indexName = "demo_template-2020.01";
-        DemoMemberBuilder memberBuilder = new DemoMemberBuilder();
         ObjectNode member = memberBuilder.build(2);
         String memberId = member.get("memberId").asText(null);
         String content = member.toString();
@@ -388,7 +390,6 @@ public class ConnextElasticSearchRepositoryTest {
         repository.putTemplate(templateName, Arrays.asList(templatePattern), DemoMappingBuilder.build2());
 
         String indexName = "demo_template-2020.02";
-        DemoMemberBuilder memberBuilder = new DemoMemberBuilder();
         ObjectNode member = memberBuilder.build(1);
         String memberId = member.get("memberId").asText(null);
         String content = member.toString();
@@ -428,5 +429,71 @@ public class ConnextElasticSearchRepositoryTest {
 
         ObjectNode memberNode = repository.findItem(indexName, "10001", null, ObjectNode.class);
         logger.info(JSON.toIndentJsonString(memberNode));
+    }
+
+    @Test
+    public void test_bulkCreate() {
+        List<IndexRequest> requestList = Lists.newArrayList();
+
+        requestList.add(buildIndexRequest(1001, indexName));
+        requestList.add(buildIndexRequest(1002, indexName));
+
+        requestList.add(buildIndexRequest(1003, indexName2));
+        requestList.add(buildIndexRequest(1004, indexName2));
+
+        repository.bulkCreate(requestList);
+
+        String[] fields = new String[]{"memberId", "points"};
+        ObjectNode member = repository.findItem(indexName, "member01001", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 1001);
+
+        member = repository.findItem(indexName, "member01002", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 1002);
+
+        member = repository.findItem(indexName2, "member01003", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 1003);
+
+        member = repository.findItem(indexName2, "member01004", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 1004);
+    }
+
+    public IndexRequest buildIndexRequest(int index, String index_name) {
+        ObjectNode member = Objects.equals(indexName, index_name) ? memberBuilder.build(index) : memberBuilder.build2(index);
+        String id = member.get("memberId").asText(null);
+        return new IndexRequest(index_name).id(id).source(member.toString(), XContentType.JSON);
+    }
+
+    @Test
+    public void test_bulkUpdate1() {
+        List<UpdateRequest> requestList = Lists.newArrayList();
+
+        requestList.add(buildUpdateRequest(indexName, "member01001", memberBuilder.buildUpdateNode(10010)));
+        requestList.add(buildUpdateRequest(indexName, "member01002", memberBuilder.buildUpdateNode(10020)));
+
+        requestList.add(buildUpdateRequest(indexName2, "member01003", memberBuilder.buildUpdateNode(10030)));
+        requestList.add(buildUpdateRequest(indexName2, "member01004", memberBuilder.buildUpdateNode(10040)));
+
+        repository.bulkUpdate(requestList);
+
+        String[] fields = new String[]{"memberId", "points"};
+        ObjectNode member = repository.findItem(indexName, "member01001", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 10010);
+
+        member = repository.findItem(indexName, "member01002", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 10020);
+
+        member = repository.findItem(indexName2, "member01003", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 10030);
+
+        member = repository.findItem(indexName2, "member01004", fields, ObjectNode.class);
+        Assert.assertEquals(true, member.get("points").asDouble(0D) == 10040);
+    }
+
+    private UpdateRequest buildUpdateRequest(String index_name, String id, ObjectNode objectNode) {
+        UpdateRequest updateRequest = new UpdateRequest(index_name, id);
+        updateRequest.doc(objectNode.toString(), XContentType.JSON);
+        updateRequest.retryOnConflict(5);
+
+        return updateRequest;
     }
 }

@@ -38,6 +38,17 @@ public class DemoMemberBuilder {
         return member;
     }
 
+    public ObjectNode build2(int index) {
+        String idString = StringUtils.padLeft(Integer.toString(index), 5, '0');
+        ObjectNode member = jsonNodeFactory.objectNode();
+
+        member.put("memberId", "member" + idString);
+        member.put("realName", "name" + idString);
+        member.put("gender", random.nextInt(2) == 0 ? "男" : "女");
+        member.put("points", index);
+        return member;
+    }
+
     private String getBirthday() {
         int currentYear = LocalDateTime.now().getYear();
         int maxAge = 60;
@@ -48,5 +59,11 @@ public class DemoMemberBuilder {
         Date date = Time.parseDate(year + "-01-01");
         date = DateUtils.addDays(date, day);
         return Time.getTimeFormatString(date, "yyyy-MM-dd") + "T00:00:00+08:00";
+    }
+
+    public ObjectNode buildUpdateNode(int points) {
+        ObjectNode member = jsonNodeFactory.objectNode();
+        member.put("points", points);
+        return member;
     }
 }
