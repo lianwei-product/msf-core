@@ -432,7 +432,7 @@ public class ConnextElasticSearchRepositoryTest {
     }
 
     @Test
-    public void test_bulkCreate() {
+    public void test_bulkCreate1() {
         List<IndexRequest> requestList = Lists.newArrayList();
 
         requestList.add(buildIndexRequest(1001, indexName));
@@ -455,6 +455,15 @@ public class ConnextElasticSearchRepositoryTest {
 
         member = repository.findItem(indexName2, "member01004", fields, ObjectNode.class);
         Assert.assertEquals(true, member.get("points").asDouble(0D) == 1004);
+    }
+
+    @Test
+    public void test_bulkCreate2() {
+        List<IndexRequest> requestList = Lists.newArrayList();
+        requestList.add(buildIndexRequest(1005, indexName2));
+        requestList.add(buildIndexRequest(1005, indexName2));
+
+        repository.bulkCreate(requestList);
     }
 
     public IndexRequest buildIndexRequest(int index, String index_name) {
