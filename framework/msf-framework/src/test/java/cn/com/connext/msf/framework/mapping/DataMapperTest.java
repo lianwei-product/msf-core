@@ -563,4 +563,27 @@ public class DataMapperTest {
 
     }
 
+
+    @Test
+    public void testStr2Array() {
+        ObjectNode sourceNode = SampleObjectNodeDataBuilder.buildStr2Array();
+        System.out.println("------------sourceNode---------------");
+        System.out.println(JSON.toIndentJsonString(sourceNode));
+
+        DynamicModel<DynamicModelField> commonMappingModel = SampleDynamicModelBuilder.buildStr2Array();
+        System.out.println("------------commonMappingModel---------------");
+        System.out.println(JSON.toIndentJsonString(commonMappingModel));
+
+        List<DynamicModelMapping> mappings = SampleCommonModelMappingBuilder.buildStr2Array();
+        System.out.println("------------mappings---------------");
+        System.out.println(JSON.toIndentJsonString(mappings));
+
+        ObjectNode destNode = DataMapper.mapping(sourceNode, commonMappingModel, mappings);
+        System.out.println("------------destNode---------------");
+        System.out.println(JSON.toIndentJsonString(destNode));
+
+        Assert.assertEquals(1, destNode.get("addressInfo").size());
+    }
+
+
 }

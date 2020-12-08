@@ -3,6 +3,7 @@ package cn.com.connext.msf.framework.mapping;
 import cn.com.connext.msf.framework.mapping.model.AviatorModel;
 import cn.com.connext.msf.framework.mapping.model.DictModel;
 import cn.com.connext.msf.framework.mapping.model.MultiSourceFieldModel;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.type.AviatorObject;
 import com.googlecode.aviator.runtime.type.AviatorString;
@@ -164,6 +165,12 @@ public class SampleCommonModelMappingBuilder {
         return Lists.newArrayList(
                 builder.buildFromSourceField(supplier, "addressInfo.province", "province"),
                 builder.buildFromSourceField(supplier, "addressInfo.city", "city")
+        );
+    }
+
+    public static List<DynamicModelMapping> buildStr2Array() {
+        return Lists.newArrayList(
+                builder.buildFromSourceField(supplier, "addressInfo.province", "province")
         );
     }
 
