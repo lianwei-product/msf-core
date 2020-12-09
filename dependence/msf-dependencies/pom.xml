@@ -344,6 +344,11 @@
 
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-framework</artifactId>
+                <version>${saas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
                 <artifactId>saas-framework-saas-core</artifactId>
                 <version>${saas.version}</version>
             </dependency>
