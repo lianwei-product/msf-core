@@ -6,6 +6,7 @@ import cn.com.connext.msf.framework.dynamic.DynamicModel;
 import cn.com.connext.msf.framework.dynamic.DynamicModelField;
 import cn.com.connext.msf.framework.mapping.model.CurrentArray;
 import cn.com.connext.msf.framework.mapping.model.CurrentNode;
+import cn.com.connext.msf.framework.utils.JsonNodeTypeValidator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -66,10 +67,9 @@ public class DataMapper {
                 fieldValue = field.loadDefaultJsonNode();
             }
 
-            // TODO: 2020/12/3
-//            if (doValid) {
-//                JsonNodeTypeValidator.validate(field, fieldValue, destPrefix);
-//            }
+            if (doValid) {
+                JsonNodeTypeValidator.validate(field, fieldValue, destPrefix);
+            }
             if (null != fieldValue) {
                 destNode.set(fieldName, fieldValue);
             }

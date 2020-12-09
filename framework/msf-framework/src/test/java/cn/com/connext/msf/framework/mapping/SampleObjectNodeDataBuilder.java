@@ -214,4 +214,9 @@ public class SampleObjectNodeDataBuilder {
         return item1;
     }
 
+    public static ObjectNode buildStr2Array() {
+        ObjectNode item1 = JsonNodeFactory.instance.objectNode();
+        item1.put("province", "江蘇省,浙江省");
+        return item1;
+    }
 }

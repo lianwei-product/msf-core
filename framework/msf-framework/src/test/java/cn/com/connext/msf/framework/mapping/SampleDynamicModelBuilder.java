@@ -7,6 +7,7 @@ import cn.com.connext.msf.framework.mapping.builder.CommonMappingModelBuilder;
 import cn.com.connext.msf.framework.mapping.entity.CdpDataModelField;
 import cn.com.connext.msf.framework.mapping.entity.CdpDataPersistentModel;
 import com.google.common.collect.Lists;
+
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -139,5 +140,16 @@ public class SampleDynamicModelBuilder {
         return CommonMappingModelBuilder.build(new CommonMappingModelBuilder.Builder()
                 .addModelField(addressInfo)
         );
+    }
+
+    public static DynamicModel<DynamicModelField> buildStr2Array() {
+        CdpDataModelField addressInfo = CdpDataModelField.from(fieldSupplier, "addressInfo", "addressInfo", DynamicModelFieldType.NESTED, null);
+        CdpDataModelField province = CdpDataModelField.from(fieldSupplier, "province", "province");
+        addressInfo.setFields(Lists.newArrayList(province));
+        addressInfo.setArrayType(true);
+        return CommonMappingModelBuilder.build(new CommonMappingModelBuilder.Builder()
+                .addModelField(addressInfo)
+        );
+
     }
 }
