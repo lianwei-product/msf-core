@@ -341,6 +341,17 @@
                 <version>${msf.version}</version>
             </dependency>
 
+            <!--cn.com.connext.saas-->
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-framework-common</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-framework-cdp</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
 
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
@@ -349,7 +360,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-framework-cdp</artifactId>
+                <artifactId>saas-framework-ec</artifactId>
                 <version>1.0.0.RELEASE</version>
             </dependency>
             <dependency>
