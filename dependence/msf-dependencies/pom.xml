@@ -348,6 +348,11 @@
                 <version>${saas.version}</version>
             </dependency>
             <dependency>
+                <groupId>cn.com.connext.saas.framework</groupId>
+                <artifactId>saas-framework-cdp</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
+            <dependency>
                 <groupId>cn.com.connext.saas</groupId>
                 <artifactId>saas-framework-saas-core</artifactId>
                 <version>${saas.version}</version>
