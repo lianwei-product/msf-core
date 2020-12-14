@@ -352,6 +352,11 @@
                 <artifactId>saas-framework-cdp</artifactId>
                 <version>1.0.0.RELEASE</version>
             </dependency>
+            <dependency>
+                <groupId>cn.com.connext.saas</groupId>
+                <artifactId>saas-framework-loyalty</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
 
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
