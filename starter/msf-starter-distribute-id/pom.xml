@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.com.connext.msf</groupId>
+        <artifactId>msf-dependencies</artifactId>
+        <version>3.0.0.RELEASE</version>
+        <relativePath>../msf-dependencies/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>msf-starter-distribute-id</artifactId>
+    <name>Connext MSF Starter Distribute Id</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.com.connext.msf</groupId>
+            <artifactId>msf-framework-distribute-id</artifactId>
+        </dependency>
+    </dependencies>
+</project>

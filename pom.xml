@@ -22,9 +22,11 @@
         <module>framework/msf-framework-microservice</module>
         <module>framework/msf-framework-server-notify</module>
         <module>framework/msf-framework-webapp</module>
+
         <module>starter/msf-starter-parent</module>
         <module>starter/msf-starter-api-metrics</module>
         <module>starter/msf-starter-cache</module>
+        <module>starter/msf-starter-distribute-id</module>
         <module>starter/msf-starter-data-elasticsearch</module>
         <module>starter/msf-starter-data-mongodb</module>
         <module>starter/msf-starter-data-jpa</module>
