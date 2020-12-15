@@ -1,4 +1,4 @@
-package cn.com.connext.msf.framework.notify.constant;
+package cn.com.connext.msf.framework.server.notify.constant;
 
 public class MailMessageType {
     public final static String CLIENT_CREATE = "clientCreate";

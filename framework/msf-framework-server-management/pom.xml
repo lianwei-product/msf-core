@@ -34,5 +34,9 @@
             <groupId>cn.com.connext.msf</groupId>
             <artifactId>msf-starter-server-timing-wheel</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.com.connext.msf</groupId>
+            <artifactId>msf-starter-server-notify</artifactId>
+        </dependency>
     </dependencies>
 </project>

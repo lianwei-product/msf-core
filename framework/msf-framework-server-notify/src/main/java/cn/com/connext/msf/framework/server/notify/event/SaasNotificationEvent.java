@@ -1,4 +1,4 @@
-package cn.com.connext.msf.framework.notify.event;
+package cn.com.connext.msf.framework.server.notify.event;
 
 
 public class SaasNotificationEvent {

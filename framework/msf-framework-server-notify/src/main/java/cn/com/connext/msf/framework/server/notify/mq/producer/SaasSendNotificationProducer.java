@@ -1,7 +1,7 @@
-package cn.com.connext.msf.framework.notify.producer;
+package cn.com.connext.msf.framework.server.notify.mq.producer;
 
-import cn.com.connext.msf.framework.notify.event.SaasNotificationEvent;
-import cn.com.connext.msf.framework.notify.pipeline.NotificationSendPipeline;
+import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
+import cn.com.connext.msf.framework.server.notify.mq.pipeline.NotificationSendPipeline;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -9,7 +9,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
-@ConditionalOnClass(MessageChannel.class)
 @EnableBinding(NotificationSendPipeline.class)
 public class SaasSendNotificationProducer {
 

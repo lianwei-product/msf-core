@@ -1,9 +1,10 @@
 package cn.com.connext.msf.server.management.processor;
 
-import cn.com.connext.msf.framework.notify.constant.DingtalkMessageType;
-import cn.com.connext.msf.framework.notify.event.SaasNotificationEvent;
-import cn.com.connext.msf.framework.notify.model.DingtalkNotificationInfo;
-import cn.com.connext.msf.framework.notify.producer.SaasSendNotificationProducer;
+import cn.com.connext.msf.framework.server.notify.constant.DingtalkMessageType;
+import cn.com.connext.msf.framework.server.notify.domain.NotifyManager;
+import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
+import cn.com.connext.msf.framework.server.notify.model.DingtalkNotificationInfo;
+import cn.com.connext.msf.framework.server.notify.mq.producer.SaasSendNotificationProducer;
 import cn.com.connext.msf.framework.utils.JSON;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,23 +20,24 @@ public class DingtalkManagedSendNotificationProcessor implements ManagedSendNoti
     private boolean isAtAll;
 
     private SaasSendNotificationProducer saasSendNotificationProducer;
+    private NotifyManager notifyManager;
 
     public DingtalkManagedSendNotificationProcessor(@Value("${managed.dingtalk.phone}") String phones,
                                                     @Value("${managed.dingtalk.isAtAll}") boolean isAtAll,
                                                     @Value("${managed.dingtalk.token}") String token,
                                                     @Value("${managed.dingtalk.secret}") String secret,
-                                                    SaasSendNotificationProducer saasSendNotificationProducer) {
+                                                    NotifyManager notifyManager) {
         this.token = token;
         this.secret = secret;
         this.phones = phones;
         this.isAtAll = isAtAll;
-        this.saasSendNotificationProducer = saasSendNotificationProducer;
+        this.notifyManager = notifyManager;
     }
 
     @Override
     public void process(String content) {
         String[] phoneList = phones.split(",");
-        DingtalkNotificationInfo dingtalkNotificationInfo = DingtalkNotificationInfo.from(DingtalkMessageType.TEXT, content, phoneList, isAtAll,token,secret);
-        saasSendNotificationProducer.send(SaasNotificationEvent.from(SaasNotificationEvent.MessageType.DINGTALK, JSON.toJsonString(dingtalkNotificationInfo)));
+        DingtalkNotificationInfo dingtalkNotificationInfo = DingtalkNotificationInfo.from(DingtalkMessageType.TEXT, content, phoneList, isAtAll, token, secret);
+        notifyManager.sendNotify(SaasNotificationEvent.from(SaasNotificationEvent.MessageType.DINGTALK, JSON.toJsonString(dingtalkNotificationInfo)));
     }
 }

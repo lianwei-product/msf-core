@@ -1,8 +1,8 @@
-package cn.com.connext.msf.framework.server.notify.consumer;
+package cn.com.connext.msf.framework.server.notify.mq.consumer;
 
 
-import cn.com.connext.msf.framework.notify.event.SaasNotificationEvent;
-import cn.com.connext.msf.framework.server.notify.pipeline.NotificationSendPipeline;
+import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
+import cn.com.connext.msf.framework.server.notify.mq.pipeline.NotificationSendPipeline;
 import cn.com.connext.msf.framework.server.notify.processor.NotificationSendEventProcessor;
 import cn.com.connext.msf.framework.utils.JSON;
 import org.slf4j.Logger;

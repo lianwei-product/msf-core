@@ -83,9 +83,9 @@ public class CsvExporter<T> {
         String filename = setting.getFileName() + "." + fileExtension.toString();
         try {
             filename = buildFileName(filename, request);//解决文件名乱码
-            OutputStreamWriter osw = new OutputStreamWriter(response.getOutputStream(), "UTF-8");
+            OutputStreamWriter osw = new OutputStreamWriter(response.getOutputStream(), "gbk");
             response.setHeader("Content-Disposition", "attachment;filename=" + filename);
-            osw.write(new String(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF}));//解决excel中展示乱码
+            //osw.write(new String(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF}));//解决excel中展示乱码
 
             // 写入文件头部
             if (setting.isShowTitle()) {

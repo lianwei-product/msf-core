@@ -1,7 +1,7 @@
 package cn.com.connext.msf.framework.server.notify.processor;
 
-import cn.com.connext.msf.framework.notify.event.SaasNotificationEvent;
-import cn.com.connext.msf.framework.notify.model.DingtalkNotificationInfo;
+import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
+import cn.com.connext.msf.framework.server.notify.model.DingtalkNotificationInfo;
 import cn.com.connext.msf.framework.server.notify.openapi.DingtalkOpenApiClient;
 import cn.com.connext.msf.framework.utils.JSON;
 import org.slf4j.Logger;

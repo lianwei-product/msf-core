@@ -370,7 +370,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-framework-saas-core</artifactId>
+                <artifactId>saas-framework-platform</artifactId>
                 <version>${saas.version}</version>
             </dependency>
             <dependency>
@@ -415,7 +415,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-starter-saas-core</artifactId>
+                <artifactId>saas-starter-platform</artifactId>
                 <version>${saas.version}</version>
             </dependency>
         </dependencies>

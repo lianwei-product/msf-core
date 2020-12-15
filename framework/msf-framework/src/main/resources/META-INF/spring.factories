@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cn.com.connext.msf.framework.httpclient.HttpClientAutoConfiguration,\
-  cn.com.connext.msf.framework.notify.producer.SaasSendNotificationProducer,\
   cn.com.connext.msf.framework.partition.DynamicPartitionConfig
