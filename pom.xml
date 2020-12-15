@@ -8,6 +8,7 @@
         <module>framework/msf-framework</module>
         <module>framework/msf-framework-api-metrics</module>
         <module>framework/msf-framework-cache</module>
+        <module>framework/msf-framework-distribute-id</module>
         <module>framework/msf-framework-data-elasticsearch</module>
         <module>framework/msf-framework-data-mongodb</module>
         <module>framework/msf-framework-data-jpa</module>
