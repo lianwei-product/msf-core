@@ -13,6 +13,7 @@
         <module>framework/msf-framework-data-mongodb</module>
         <module>framework/msf-framework-data-jpa</module>
         <module>framework/msf-framework-file-excel</module>
+        <module>framework/msf-framework-log</module>
         <module>framework/msf-framework-mail</module>
         <module>framework/msf-framework-server-registry</module>
         <module>framework/msf-framework-server-config</module>
@@ -31,6 +32,7 @@
         <module>starter/msf-starter-data-mongodb</module>
         <module>starter/msf-starter-data-jpa</module>
         <module>starter/msf-starter-file-excel</module>
+        <module>starter/msf-starter-log</module>
         <module>starter/msf-starter-mail</module>
         <module>starter/msf-starter-server-registry</module>
         <module>starter/msf-starter-server-config</module>

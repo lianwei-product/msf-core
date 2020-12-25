@@ -312,6 +312,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-framework-log</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-framework-mail</artifactId>
                 <version>${msf.version}</version>
             </dependency>
@@ -328,6 +333,11 @@
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-file-excel</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-starter-log</artifactId>
                 <version>${msf.version}</version>
             </dependency>
             <dependency>
@@ -375,11 +385,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-framework-log</artifactId>
-                <version>${saas.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.com.connext.saas</groupId>
                 <artifactId>saas-framework-uaa-core</artifactId>
                 <version>${saas.version}</version>
             </dependency>
@@ -400,7 +405,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-starter-log</artifactId>
+                <artifactId>saas-starter-common</artifactId>
                 <version>${saas.version}</version>
             </dependency>
             <dependency>
