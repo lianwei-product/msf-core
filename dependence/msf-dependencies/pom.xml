@@ -380,7 +380,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-framework-platform</artifactId>
+                <artifactId>saas-framework-uaa</artifactId>
                 <version>${saas.version}</version>
             </dependency>
             <dependency>
@@ -420,7 +420,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.saas</groupId>
-                <artifactId>saas-starter-platform</artifactId>
+                <artifactId>saas-starter-uaa</artifactId>
                 <version>${saas.version}</version>
             </dependency>
         </dependencies>
