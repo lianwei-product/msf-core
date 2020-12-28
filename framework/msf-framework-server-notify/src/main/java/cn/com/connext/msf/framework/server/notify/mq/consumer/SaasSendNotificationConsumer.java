@@ -7,12 +7,15 @@ import cn.com.connext.msf.framework.server.notify.processor.NotificationSendEven
 import cn.com.connext.msf.framework.utils.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.handler.annotation.Payload;
 
 import java.util.List;
 
+@ConditionalOnClass(MessageChannel.class)
 @EnableBinding(NotificationSendPipeline.class)
 public class SaasSendNotificationConsumer {
 

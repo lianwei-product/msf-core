@@ -197,6 +197,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.connext.msf</groupId>
+                <artifactId>msf-starter-cache</artifactId>
+                <version>${msf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.connext.msf</groupId>
                 <artifactId>msf-starter-server-management</artifactId>
                 <version>${msf.version}</version>
             </dependency>

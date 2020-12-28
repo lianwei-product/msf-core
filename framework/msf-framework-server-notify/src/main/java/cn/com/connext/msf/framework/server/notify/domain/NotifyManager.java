@@ -1,18 +1,8 @@
 package cn.com.connext.msf.framework.server.notify.domain;
 
 import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
-import cn.com.connext.msf.framework.server.notify.mq.producer.SaasSendNotificationProducer;
-import org.springframework.stereotype.Component;
 
-@Component
-public class NotifyManager {
-    private final SaasSendNotificationProducer saasSendNotificationProducer;
+public interface NotifyManager {
 
-    public NotifyManager(SaasSendNotificationProducer saasSendNotificationProducer) {
-        this.saasSendNotificationProducer = saasSendNotificationProducer;
-    }
-
-    public void sendNotify(SaasNotificationEvent saasNotificationEvent) {
-        saasSendNotificationProducer.send(saasNotificationEvent);
-    }
+    void sendNotify(SaasNotificationEvent saasNotificationEvent);
 }

@@ -4,7 +4,6 @@ import cn.com.connext.msf.framework.server.notify.constant.DingtalkMessageType;
 import cn.com.connext.msf.framework.server.notify.domain.NotifyManager;
 import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
 import cn.com.connext.msf.framework.server.notify.model.DingtalkNotificationInfo;
-import cn.com.connext.msf.framework.server.notify.mq.producer.SaasSendNotificationProducer;
 import cn.com.connext.msf.framework.utils.JSON;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,7 +18,6 @@ public class DingtalkManagedSendNotificationProcessor implements ManagedSendNoti
     private String phones;
     private boolean isAtAll;
 
-    private SaasSendNotificationProducer saasSendNotificationProducer;
     private NotifyManager notifyManager;
 
     public DingtalkManagedSendNotificationProcessor(@Value("${managed.dingtalk.phone}") String phones,

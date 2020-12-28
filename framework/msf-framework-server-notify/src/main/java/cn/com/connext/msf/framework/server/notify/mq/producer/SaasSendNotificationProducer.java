@@ -9,6 +9,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
+@ConditionalOnClass(MessageChannel.class)
 @EnableBinding(NotificationSendPipeline.class)
 public class SaasSendNotificationProducer {
 
