@@ -1,15 +1,17 @@
-package cn.com.connext.msf.framework.server.notify.event;
+package cn.com.connext.msf.framework.notify.event;
 
 
 public class SaasNotificationEvent {
 
+    private String applicationName;
     private MessageType messageType;
     private String content;
 
-    public static SaasNotificationEvent from(MessageType messageType, String content) {
+    public static SaasNotificationEvent from(MessageType messageType, String content, String applicationName) {
         SaasNotificationEvent saasNotificationEvent = new SaasNotificationEvent();
         saasNotificationEvent.setMessageType(messageType);
         saasNotificationEvent.setContent(content);
+        saasNotificationEvent.setApplicationName(applicationName);
         return saasNotificationEvent;
     }
 
@@ -27,6 +29,14 @@ public class SaasNotificationEvent {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
     }
 
     public enum MessageType {

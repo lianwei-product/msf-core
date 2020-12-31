@@ -1,4 +1,4 @@
-package cn.com.connext.msf.framework.server.notify.model;
+package cn.com.connext.msf.framework.notify.model;
 
 public class MailNotificationInfo {
 

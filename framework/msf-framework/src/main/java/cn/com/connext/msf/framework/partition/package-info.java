@@ -13,7 +13,7 @@
  *     destination: TEST.SERIAL
  *     group: test
  *     contentType: application/json
- *     consumer:
+ *     subscriber:
  *         partitioned: true
  * #       instanceIndex: 0
  *         concurrency: 3

@@ -1,8 +1,8 @@
 package cn.com.connext.msf.framework.server.notify.processor;
 
 import cn.com.connext.msf.framework.mail.domain.MailManager;
-import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
-import cn.com.connext.msf.framework.server.notify.model.MailNotificationInfo;
+import cn.com.connext.msf.framework.notify.event.SaasNotificationEvent;
+import cn.com.connext.msf.framework.notify.model.MailNotificationInfo;
 import cn.com.connext.msf.framework.utils.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

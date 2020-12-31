@@ -1,4 +1,4 @@
-package cn.com.connext.msf.framework.server.notify.constant;
+package cn.com.connext.msf.framework.notify.constant;
 
 public class DingtalkMessageType {
 

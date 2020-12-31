@@ -1,6 +1,6 @@
 package openapi;
 
-import cn.com.connext.msf.framework.server.notify.model.DingtalkNotificationInfo;
+import cn.com.connext.msf.framework.notify.model.DingtalkNotificationInfo;
 import cn.com.connext.msf.framework.server.notify.utils.DingtalkHttpClient;
 import cn.com.connext.msf.framework.server.notify.utils.DingtalkSecretEncode;
 import cn.com.connext.msf.framework.utils.JSON;

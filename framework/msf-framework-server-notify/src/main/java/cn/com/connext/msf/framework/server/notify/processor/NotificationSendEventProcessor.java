@@ -1,6 +1,6 @@
 package cn.com.connext.msf.framework.server.notify.processor;
 
-import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
+import cn.com.connext.msf.framework.notify.event.SaasNotificationEvent;
 
 public interface NotificationSendEventProcessor {
     /**

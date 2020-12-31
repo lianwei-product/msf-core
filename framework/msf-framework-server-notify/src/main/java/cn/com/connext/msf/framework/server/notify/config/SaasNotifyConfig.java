@@ -1,7 +1,7 @@
 package cn.com.connext.msf.framework.server.notify.config;
 
 import cn.com.connext.msf.framework.server.notify.domain.LocalNotifyManager;
-import cn.com.connext.msf.framework.server.notify.domain.NotifyManager;
+import cn.com.connext.msf.framework.notify.domain.NotifyManager;
 import cn.com.connext.msf.framework.server.notify.processor.NotificationSendEventProcessor;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

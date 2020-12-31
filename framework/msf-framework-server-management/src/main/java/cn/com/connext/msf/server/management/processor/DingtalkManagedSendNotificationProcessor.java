@@ -1,9 +1,9 @@
 package cn.com.connext.msf.server.management.processor;
 
-import cn.com.connext.msf.framework.server.notify.constant.DingtalkMessageType;
-import cn.com.connext.msf.framework.server.notify.domain.NotifyManager;
-import cn.com.connext.msf.framework.server.notify.event.SaasNotificationEvent;
-import cn.com.connext.msf.framework.server.notify.model.DingtalkNotificationInfo;
+import cn.com.connext.msf.framework.notify.constant.DingtalkMessageType;
+import cn.com.connext.msf.framework.notify.domain.NotifyManager;
+import cn.com.connext.msf.framework.notify.event.SaasNotificationEvent;
+import cn.com.connext.msf.framework.notify.model.DingtalkNotificationInfo;
 import cn.com.connext.msf.framework.utils.JSON;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -20,7 +20,10 @@ public class DingtalkManagedSendNotificationProcessor implements ManagedSendNoti
 
     private NotifyManager notifyManager;
 
-    public DingtalkManagedSendNotificationProcessor(@Value("${managed.dingtalk.phone}") String phones,
+    private String applicationName;
+
+    public DingtalkManagedSendNotificationProcessor(@Value("${msf.application.name}") String applicationName,
+                                                    @Value("${managed.dingtalk.phone}") String phones,
                                                     @Value("${managed.dingtalk.isAtAll}") boolean isAtAll,
                                                     @Value("${managed.dingtalk.token}") String token,
                                                     @Value("${managed.dingtalk.secret}") String secret,
@@ -36,6 +39,6 @@ public class DingtalkManagedSendNotificationProcessor implements ManagedSendNoti
     public void process(String content) {
         String[] phoneList = phones.split(",");
         DingtalkNotificationInfo dingtalkNotificationInfo = DingtalkNotificationInfo.from(DingtalkMessageType.TEXT, content, phoneList, isAtAll, token, secret);
-        notifyManager.sendNotify(SaasNotificationEvent.from(SaasNotificationEvent.MessageType.DINGTALK, JSON.toJsonString(dingtalkNotificationInfo)));
+        notifyManager.sendNotify(SaasNotificationEvent.from(SaasNotificationEvent.MessageType.DINGTALK, JSON.toJsonString(dingtalkNotificationInfo),applicationName));
     }
 }
