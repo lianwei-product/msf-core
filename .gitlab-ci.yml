@@ -1,0 +1,28 @@
+stages:
+    - build
+    - test
+    - verify
+    - deploy
+
+maven-build:
+    stage: build
+    script: mvn clean compile
+
+maven-test:
+    stage: test
+    script:
+        - mvn test
+    artifacts:
+        paths:
+            - target/surefire-reports/*
+    when: manual
+
+maven-sonar:
+    stage: verify
+    script: mvn sonar:sonar -Dsonar.java.binaries=target/sonar
+
+maven-deploy:
+    stage: deploy
+    script:
+        - mvn deploy -DskipTests
+    when: manual
