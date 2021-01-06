@@ -7,6 +7,7 @@ import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
@@ -37,6 +38,10 @@ public class CommonModelBuilder extends DynamicModelBuilder {
     private void appendModelFields(List<CommonModelField> modelFieldList, Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+
             CommonModelField modelField = new CommonModelField();
             modelField.setName(getName(field));
             modelField.setAliasName(getAliasName(field));
