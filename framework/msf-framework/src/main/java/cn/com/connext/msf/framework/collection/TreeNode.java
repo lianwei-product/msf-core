@@ -15,7 +15,9 @@ public interface TreeNode {
 
     String getName();
 
-    String getRemark();
+    default Object getExtend() {
+        return null;
+    }
 
     default <S extends TreeNode> List<String> getChild(List<S> nodeList) {
         return getChild(this, nodeList, Lists.newArrayList());

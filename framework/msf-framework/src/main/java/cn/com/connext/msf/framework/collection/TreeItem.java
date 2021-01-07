@@ -17,9 +17,9 @@ public class TreeItem implements TreeNode {
 
     private String name;
 
-    private String remark;
-
     private List<TreeItem> child;
+
+    private Object extend;
 
     public TreeItem() {
 
@@ -53,7 +53,7 @@ public class TreeItem implements TreeNode {
         treeItem.id = node.getId();
         treeItem.parent = node.getParent();
         treeItem.name = node.getName();
-        treeItem.remark = node.getRemark();
+        treeItem.extend = node.getExtend();
         return treeItem;
     }
 
@@ -70,11 +70,11 @@ public class TreeItem implements TreeNode {
         return name;
     }
 
-    public String getRemark() {
-        return remark;
-    }
-
     public List<TreeItem> getChild() {
         return child;
+    }
+
+    public Object getExtend() {
+        return extend;
     }
 }
