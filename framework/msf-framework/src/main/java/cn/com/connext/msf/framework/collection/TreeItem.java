@@ -17,7 +17,7 @@ public class TreeItem implements TreeNode {
 
     private String name;
 
-    private List<TreeItem> child;
+    private List<TreeItem> children;
 
     private Object extend;
 
@@ -39,10 +39,10 @@ public class TreeItem implements TreeNode {
         TreeItem parentItem = from(parentNode);
         for (TreeNode childNode : nodeList) {
             if (Objects.equals(parentItem.id, childNode.getParent())) {
-                if (parentItem.child == null) {
-                    parentItem.child = Lists.newArrayList();
+                if (parentItem.children == null) {
+                    parentItem.children = Lists.newArrayList();
                 }
-                parentItem.child.add(findChild(childNode, nodeList));
+                parentItem.children.add(findChild(childNode, nodeList));
             }
         }
         return parentItem;
@@ -70,8 +70,8 @@ public class TreeItem implements TreeNode {
         return name;
     }
 
-    public List<TreeItem> getChild() {
-        return child;
+    public List<TreeItem> getChildren() {
+        return children;
     }
 
     public Object getExtend() {
