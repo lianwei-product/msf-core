@@ -4,10 +4,12 @@ import cn.com.connext.msf.framework.dynamic.DynamicModelField;
 import cn.com.connext.msf.framework.mapping.DynamicFieldMappingType;
 import cn.com.connext.msf.framework.mapping.DynamicModelMapping;
 import cn.com.connext.msf.framework.utils.JsonNodeLoader;
-import cn.com.connext.msf.framework.utils.ObjectNodeUtil;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+
+import java.util.Map;
 
 public class CurrentNode {
     private DynamicModelField dataModelField;
@@ -72,6 +74,15 @@ public class CurrentNode {
             case FROM_MULTI_SOURCE_FIELD: {
                 return JsonNodeLoader.loadMultiSourceFieldJsonNode(false, node, dataModelMapping);
             }
+            case CONDITION_EXP: {
+                // FIXME: 2021/1/8
+                AviatorModel mappingSetting = dataModelMapping.convertMappingSetting(AviatorModel.class);
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String, Object> env = mapper.convertValue(node, Map.class);
+                mappingSetting.setEnv(env);
+//                mappingSetting.getEnv().put("src", ObjectNodeUtil.getString(jsonNode, ""));
+                return JsonNodeLoader.loadJsonNodeFromObject(dataModelField.getType(), mappingSetting.excute());
+            }
 
             default: {
                 JsonNode jsonValue = null;
@@ -102,12 +113,6 @@ public class CurrentNode {
             case FROM_DICTIONARY: {
                 DictModel mappingSetting = dataModelMapping.convertMappingSetting(DictModel.class);
                 return JsonNodeLoader.loadJsonNodeFromString(dataModelField.getType(), mappingSetting.getDict().get(jsonNode.asText(null)));
-            }
-
-            case CONDITION_EXP: {
-                AviatorModel mappingSetting = dataModelMapping.convertMappingSetting(AviatorModel.class);
-                mappingSetting.getEnv().put("src", ObjectNodeUtil.getString(jsonNode, ""));
-                return JsonNodeLoader.loadJsonNodeFromObject(dataModelField.getType(), mappingSetting.excute());
             }
 
             default: {

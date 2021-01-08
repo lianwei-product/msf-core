@@ -1,5 +1,6 @@
 package cn.com.connext.msf.framework.mapping;
 
+import cn.com.connext.msf.framework.aviator.functions.AviatorTransfer;
 import cn.com.connext.msf.framework.dynamic.CommonModel;
 import cn.com.connext.msf.framework.dynamic.DynamicModel;
 import cn.com.connext.msf.framework.dynamic.DynamicModelField;
@@ -307,7 +308,7 @@ public class DataMapperTest {
         System.out.println("------------destNode---------------");
         System.out.println(JSON.toIndentJsonString(destNode));
 
-        Assert.assertEquals("unregisted", destNode.get("level").textValue());
+        Assert.assertEquals("未知", destNode.get("level").textValue());
 
     }
 
@@ -429,6 +430,36 @@ public class DataMapperTest {
         System.out.println("------------destNode1---------------");
         System.out.println(JSON.toIndentJsonString(destNode1));
         Assert.assertEquals("A", ObjectNodeUtil.getString(destNode1, "name.level"));
+
+    }
+
+
+    @Test
+    public void testConditionConvert05() {
+        ObjectNode sourceNode1 = SampleObjectNodeDataBuilder.buildConditionConvert04("20", "30");
+        System.out.println("------------sourceNode1---------------");
+        System.out.println(JSON.toIndentJsonString(sourceNode1));
+
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildConditionConvert03();
+        System.out.println("------------commonModel---------------");
+        System.out.println(JSON.toIndentJsonString(commonModel));
+
+        List<DynamicModelMapping> mappings = SampleCommonModelMappingBuilder.buildConditionConvert04();
+        System.out.println("------------mappings---------------");
+        System.out.println(JSON.toIndentJsonString(mappings));
+
+        try {
+            AviatorEvaluator.importFunctions(AviatorTransfer.class);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        ObjectNode destNode1 = DataMapper.mapping(sourceNode1, commonModel, mappings);
+        System.out.println("------------destNode1---------------");
+        System.out.println(JSON.toIndentJsonString(destNode1));
+        Assert.assertEquals("50.0", ObjectNodeUtil.getString(destNode1, "name.score"));
 
     }
 

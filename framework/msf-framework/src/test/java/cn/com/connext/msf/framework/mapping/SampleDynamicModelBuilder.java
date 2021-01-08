@@ -88,6 +88,16 @@ public class SampleDynamicModelBuilder {
                 .addModelField(field));
     }
 
+    public static DynamicModel<DynamicModelField> buildConditionConvert03() {
+        CdpDataModelField field01 = CdpDataModelField.from(fieldSupplier, "score", "score", DynamicModelFieldType.KEYWORD, false, "UNKNOWN");
+
+        CdpDataModelField field = CdpDataModelField.from(fieldSupplier, "name", "name", DynamicModelFieldType.NESTED);
+        field.getFields().add(field01);
+
+        return CommonMappingModelBuilder.build(new CommonMappingModelBuilder.Builder()
+                .addModelField(field));
+    }
+
 
     public static CommonMappingModel buildDataModel() {
         CdpDataPersistentModel member = new CdpDataPersistentModel();
@@ -152,4 +162,6 @@ public class SampleDynamicModelBuilder {
         );
 
     }
+
+
 }

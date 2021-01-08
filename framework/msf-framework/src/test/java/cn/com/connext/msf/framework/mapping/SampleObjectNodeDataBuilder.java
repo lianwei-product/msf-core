@@ -184,6 +184,15 @@ public class SampleObjectNodeDataBuilder {
         return name;
     }
 
+    public static ObjectNode buildConditionConvert04(String val1, String val2) {
+        ObjectNode name = JsonNodeFactory.instance.objectNode();
+        ObjectNode nameInfo = JsonNodeFactory.instance.objectNode();
+        nameInfo.put("score1", val1);
+        nameInfo.put("score2", val2);
+        name.set("name", nameInfo);
+        return name;
+    }
+
     public static ObjectNode buildNestedMapping01() {
         ObjectMapper objectMapper = new ObjectMapper();
 

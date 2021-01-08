@@ -166,6 +166,8 @@ public class DataMapper {
             return CurrentNode.from(dataModelField, dataModelMapping, null, null);
         } else if (dataModelMapping.getMappingType().equals(DynamicFieldMappingType.FROM_MULTI_SOURCE_FIELD)) {
             return CurrentNode.from(dataModelField, dataModelMapping, sourceNode, null);
+        }else if (dataModelMapping.getMappingType().equals(DynamicFieldMappingType.CONDITION_EXP)) {
+            return CurrentNode.from(dataModelField, dataModelMapping, sourceNode, null);
         }
 
         String sourceFieldName = dataModelMapping.getSourceFieldName();

@@ -44,5 +44,13 @@ public class AviatorTransfer implements AviatorImportFunction {
         return "UNKNOWN";
     }
 
+    public static String add(String a, String b) {
+        try {
+            return String.valueOf(Double.parseDouble(a) + Double.parseDouble(b));
+        } catch (Exception e) {
+            log.error("transfer error", e);
+        }
+        return "UNKNOWN";
+    }
 }
 

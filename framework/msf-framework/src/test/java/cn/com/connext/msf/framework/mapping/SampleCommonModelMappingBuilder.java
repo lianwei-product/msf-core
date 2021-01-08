@@ -105,7 +105,7 @@ public class SampleCommonModelMappingBuilder {
     }
 
     public static List<DynamicModelMapping> buildConditionConvert01() {
-        AviatorModel aviatorModel = new AviatorModel.Builder("level(src)").
+        AviatorModel aviatorModel = new AviatorModel.Builder("level(level)").
                 addFunctions(new LevelTransfer()).build();
         return Lists.newArrayList(
                 builder.buildConditionExp(supplier, "level", "level", aviatorModel)
@@ -113,7 +113,7 @@ public class SampleCommonModelMappingBuilder {
     }
 
     public static List<DynamicModelMapping> buildConditionConvert02() {
-        AviatorModel aviatorModel = new AviatorModel.Builder("level(src)").
+        AviatorModel aviatorModel = new AviatorModel.Builder("level(name.level)").
                 addFunctions(new LevelTransfer()).build();
         return Lists.newArrayList(
                 builder.buildConditionExp(supplier, "name.level", "name.level", aviatorModel)
@@ -124,11 +124,18 @@ public class SampleCommonModelMappingBuilder {
 //        AviatorModel aviatorModel = new AviatorModel.Builder("level(src)").
 //                addFunctions(new LevelTransfer()).build();
         Map<String, Object> map = new HashMap<>();
-        map.put("expression", "level(src)");
+        map.put("expression", "level(name.level)");
         map.put("functions", null);
         map.put("env", null);
         return Lists.newArrayList(
                 builder.buildConditionExp(supplier, "name.level", "name.level", map)
+        );
+    }
+
+    public static List<DynamicModelMapping> buildConditionConvert04() {
+        AviatorModel aviatorModel = new AviatorModel.Builder("AviatorTransfer.add(name.score1,name.score2)").build();
+        return Lists.newArrayList(
+                builder.buildConditionExp(supplier, "name.score", "", aviatorModel)
         );
     }
 
