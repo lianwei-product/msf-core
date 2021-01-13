@@ -59,12 +59,16 @@ public class JSON {
         return OBJECT_MAPPER.createObjectNode();
     }
 
+    public static ArrayNode createArrayNode() {
+        return OBJECT_MAPPER.createArrayNode();
+    }
+
     public static <T> ObjectNode toObjectNode(T t) {
-        return JSON.parseObject(JSON.toJsonString(t), ObjectNode.class);
+        return parseObject(JSON.toJsonString(t), ObjectNode.class);
     }
 
     public static <T> ArrayNode toArrayNode(T t) {
-        return JSON.parseObject(JSON.toJsonString(t), ArrayNode.class);
+        return parseObject(JSON.toJsonString(t), ArrayNode.class);
     }
 
     public static Map<String, Object> toMap(JsonNode jsonNode) {
@@ -72,7 +76,11 @@ public class JSON {
     }
 
     public static <T> T parseObject(JsonNode node, Class<T> valueType) {
-        return JSON.parseObject(node.toString(), valueType);
+        return parseObject(node.toString(), valueType);
+    }
+
+    public static ObjectNode parseObjectNode(String json) {
+        return parseObject(json, ObjectNode.class);
     }
 
     public static <T> T parseObject(String json, Class<T> valueType) {
