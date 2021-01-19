@@ -66,7 +66,11 @@ public abstract class DynamicModelBuilder {
 
     protected DynamicModelFieldType getModelFieldType(Class<?> fieldClass) {
         DynamicModelFieldType modelFieldType = STANDARD_TYPE.get(fieldClass);
-        return modelFieldType != null ? modelFieldType : DynamicModelFieldType.NESTED;
+        if (fieldClass.isEnum()) {
+            return DynamicModelFieldType.KEYWORD;
+        } else {
+            return modelFieldType != null ? modelFieldType : DynamicModelFieldType.NESTED;
+        }
     }
 
     protected Class<?> getFieldClass(Field field) {
