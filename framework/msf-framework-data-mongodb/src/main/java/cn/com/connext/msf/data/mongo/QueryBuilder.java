@@ -46,6 +46,7 @@ public class QueryBuilder {
             for (String fieldName : queryInfo.getFieldArray()) {
                 result.fields().include(fieldName);
             }
+            result.fields().include("_class");
         }
         return result;
     }

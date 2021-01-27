@@ -139,6 +139,7 @@ public class ConnextMongoRepositoryImpl<T, ID extends Serializable>
             for (String field : fields) {
                 query.fields().include(field);
             }
+            query.fields().include("_class");
         }
 
         List<T> list = mongoOperations.find(query, entityInformation.getJavaType());
