@@ -50,7 +50,7 @@ public class GatewayRouteManager {
 
         QueryInfo queryInfo = QueryInfo.from("routeId eq {0}", route.getId());
         List<RouteApiMethod> apiMethods = routeApiMethodService.findList(queryInfo);
-        apiMethods.sort((o1, o2) -> o2.getUri().length() - o1.getUri().length());
+        apiMethods.sort((o1, o2) -> -o2.getUri().split("/\\{").length + o1.getUri().split("\\{").length);
         apiMethods.forEach(method -> {
             String authority = method.isNoAuth() ? null : method.getAuthority();
             String apiRequestTraceType = method.getConfig().getLogLevel();

@@ -19,9 +19,9 @@ public class GatewayRequestTraceRuleProvider implements RequestTraceRuleProvider
     }
 
     @Override
-    public Map<String, RequestTraceRule> getRequestTraceRule(String uri) {
+    public Map<String, RequestTraceRule> getRequestTraceRule(String uri, String method) {
         for (GatewayRoute gatewayRoute : gatewayRouteManager.getGatewayRouteMap().values()) {
-            HashMap<String, GatewayRouteRule> filterMethodMap = gatewayRoute.getMethodRuleMap(uri);
+            HashMap<String, GatewayRouteRule> filterMethodMap = gatewayRoute.getMethodRuleMap(uri, method);
             if (filterMethodMap != null) {
                 HashMap<String, RequestTraceRule> configs = Maps.newHashMap();
                 filterMethodMap.forEach((k, v) -> configs.putIfAbsent(k, RequestTraceRule.from(v.getPath(), v.getApiRequestTraceType())));

@@ -45,7 +45,7 @@ public class GatewayRoute {
         allowedMethodMap.put(httpMethod, rule);
     }
 
-    public HashMap<String, GatewayRouteRule> getMethodRuleMap(String uri) {
+    public HashMap<String, GatewayRouteRule> getMethodRuleMap(String uri, String method) {
         if (!GatewayPathMatcher.match(path, uri)) return null;
         HashMap<String, GatewayRouteRule> map = routeRuleMap.get(uri);
         if (map != null) {
@@ -54,7 +54,10 @@ public class GatewayRoute {
 
         for (Map.Entry<String, HashMap<String, GatewayRouteRule>> entry : routeRuleMap.entrySet()) {
             if (GatewayPathMatcher.match(entry.getKey(), uri)) {
-                return entry.getValue();
+                HashMap<String, GatewayRouteRule> result = entry.getValue();
+                if (result.containsKey(method)) {
+                    return result;
+                }
             }
         }
         return null;

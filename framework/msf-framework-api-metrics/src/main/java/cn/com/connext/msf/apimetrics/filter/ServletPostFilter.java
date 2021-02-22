@@ -42,7 +42,7 @@ public class ServletPostFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
-        Map<String, RequestTraceRule> configs = requestTraceRuleProvider.getRequestTraceRule(httpServletRequest.getRequestURI());
+        Map<String, RequestTraceRule> configs = requestTraceRuleProvider.getRequestTraceRule(httpServletRequest.getRequestURI(), httpServletRequest.getMethod());
         if (configs == null) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;

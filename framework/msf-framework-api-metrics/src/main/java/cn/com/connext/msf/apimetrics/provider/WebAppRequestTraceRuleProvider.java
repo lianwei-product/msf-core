@@ -17,12 +17,15 @@ public class WebAppRequestTraceRuleProvider implements RequestTraceRuleProvider 
     }
 
     @Override
-    public Map<String, RequestTraceRule> getRequestTraceRule(String uri) {
+    public Map<String, RequestTraceRule> getRequestTraceRule(String uri, String method) {
         Map<String, Map<String, RequestTraceRule>> requestTraceConfigMap = webAppRequestTraceRuleBuilder.getRequestTraceConfigs();
         if (requestTraceConfigMap != null) {
             for (String urlPattern : requestTraceConfigMap.keySet()) {
                 if (RequestPathMatcher.match(urlPattern, uri)) {
-                    return requestTraceConfigMap.get(urlPattern);
+                    Map<String, RequestTraceRule> ruleMap = requestTraceConfigMap.get(urlPattern);
+                    if (ruleMap.containsKey(method)) {
+                        return ruleMap;
+                    }
                 }
             }
         }

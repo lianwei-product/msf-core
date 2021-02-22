@@ -51,7 +51,7 @@ public class ZuulPostFilter extends ZuulFilter {
     public Object run() {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-        Map<String, RequestTraceRule> configs = requestTraceRuleProvider.getRequestTraceRule(request.getRequestURI());
+        Map<String, RequestTraceRule> configs = requestTraceRuleProvider.getRequestTraceRule(request.getRequestURI(), request.getMethod());
         if (configs != null) {
             RequestTraceRule requestTraceRule = configs.get(request.getMethod());
             if (requestTraceRule == null) {
