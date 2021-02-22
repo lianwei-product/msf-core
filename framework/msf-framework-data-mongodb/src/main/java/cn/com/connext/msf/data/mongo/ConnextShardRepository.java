@@ -219,9 +219,6 @@ public abstract class ConnextShardRepository<T, ID extends Serializable> {
 
         String collectionName = getCollectionName(shardCode);
         Query query = QueryBuilder.build(entityClass, queryInfo);
-        if (query == null) {
-            query = new Query();
-        }
         query.with(queryInfo.getPageable());
 
         List<T> list = getMongoOperations(shardCode).find(query, entityClass, collectionName);
@@ -237,10 +234,6 @@ public abstract class ConnextShardRepository<T, ID extends Serializable> {
     public List<T> findList(String shardCode, QueryInfo queryInfo) {
         String collectionName = getCollectionName(shardCode);
         Query query = QueryBuilder.build(entityClass, queryInfo);
-        if (query == null) {
-            query = new Query();
-        }
-
         if (queryInfo != null && queryInfo.getPageable() != null) {
             query.with(queryInfo.getPageable().getSort());
         }

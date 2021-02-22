@@ -34,16 +34,21 @@ public class QueryBuilder {
 
     public static Query build(ConnextEntityInfo connextEntityInfo, QueryInfo queryInfo) {
         if (queryInfo == null) {
-            return null;
+            return new Query();
         }
-
-        if (StringUtils.isEmpty(queryInfo.getExpression())) {
-            return null;
+        Query result = new Query();
+        if (StringUtils.isNotBlank(queryInfo.getExpression())) {
+            List<QueryExpression> expressionNodes = QueryExpression.parse(queryInfo.getExpression());
+            Criteria criteria = buildCriteria(connextEntityInfo, expressionNodes, queryInfo.getCheckOperator());
+            result.addCriteria(criteria);
         }
-
-        List<QueryExpression> expressionNodes = QueryExpression.parse(queryInfo.getExpression());
-        Criteria criteria = buildCriteria(connextEntityInfo, expressionNodes, queryInfo.getCheckOperator());
-        return new Query(criteria);
+        if (StringUtils.isNotBlank(queryInfo.getFields())) {
+            for (String fieldName : queryInfo.getFieldArray()) {
+                result.fields().include(fieldName);
+            }
+            result.fields().include("_class");
+        }
+        return result;
     }
 
 
