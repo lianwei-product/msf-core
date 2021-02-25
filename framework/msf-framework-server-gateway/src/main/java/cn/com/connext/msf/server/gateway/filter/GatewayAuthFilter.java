@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -74,7 +75,11 @@ public class GatewayAuthFilter extends ZuulFilter {
         HashMap<String, GatewayRouteRule> allowedMethodMap = getUriMethodMap(requestContext);
 
         if (allowedMethodMap == null) {
-            return responseError(requestContext, 404);
+            responseError(requestContext, 404);
+            try {
+                requestContext.getResponse().flushBuffer();
+            } catch (IOException e) {}
+            return null;
         }
 
         if (!allowedMethodMap.containsKey("*") && !allowedMethodMap.containsKey(request.getMethod())) {
