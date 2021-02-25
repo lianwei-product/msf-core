@@ -78,7 +78,8 @@ public class GatewayAuthFilter extends ZuulFilter {
             responseError(requestContext, 404);
             try {
                 requestContext.getResponse().flushBuffer();
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
             return null;
         }
 
@@ -108,8 +109,17 @@ public class GatewayAuthFilter extends ZuulFilter {
             }
         }
 
-        addJwtHeader(requestContext, tenantId, clientType, clientId);
+        // 获取当前token过期时间
+        if (claims != null) {
+            long tokenExpireTime = Long.parseLong(claims.get("exp").toString()) * 1000;
+            if (expiredTokenCache.expired(clientId, tokenExpireTime)) {
+                tenantId = null;
+                clientType = null;
+                clientId = null;
+            }
+        }
 
+        addJwtHeader(requestContext, tenantId, clientType, clientId);
 
         String authority = allowedMethodMap.get(request.getMethod()).getAuthority();
         if (authority == null) {    // 公开接口方法，无需鉴权
@@ -124,7 +134,6 @@ public class GatewayAuthFilter extends ZuulFilter {
             return responseError(requestContext, 401);
         }
 
-        // 获取当前token过期时间
         long tokenExpireTime = Long.parseLong(claims.get("exp").toString()) * 1000;
         if (expiredTokenCache.expired(clientId, tokenExpireTime)) {
             return responseError(requestContext, 401);
@@ -135,7 +144,7 @@ public class GatewayAuthFilter extends ZuulFilter {
             if (System.currentTimeMillis() > refreshBefore) {
                 JwtCookieInfo jwtCookieInfo = gatewayAuthClient.refreshToken(jwtString);
                 if (jwtCookieInfo != null) {
-                    Cookie cookie = JsonWebTokenCookieBuilder.buildCookie(jwtCookieInfo.getDomain(), jwtCookieInfo.getJwtToken(),isSecure);
+                    Cookie cookie = JsonWebTokenCookieBuilder.buildCookie(jwtCookieInfo.getDomain(), jwtCookieInfo.getJwtToken(), isSecure);
                     requestContext.getResponse().addCookie(cookie);
                 }
             }
