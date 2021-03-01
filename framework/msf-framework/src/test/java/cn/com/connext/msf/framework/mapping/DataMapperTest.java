@@ -94,7 +94,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNestedDefaultValue();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedDefaultValue();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -115,7 +115,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNestedDefaultValue();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedDefaultValue();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -136,7 +136,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNestedArrayDefaultValue();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedArrayDefaultValue();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -164,7 +164,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildFixedValue();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildFixedValue();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -185,7 +185,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildDictConvert();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildDictConvert();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -490,7 +490,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNullValue();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNullValue();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 
@@ -511,7 +511,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNestedMapping01();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedMapping01();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 //
@@ -533,7 +533,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNestedMapping02();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedMapping02();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 //
@@ -555,7 +555,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNestedMapping03();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedMapping03();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 //
@@ -580,7 +580,7 @@ public class DataMapperTest {
         System.out.println("------------sourceNode---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode));
 
-        DynamicModel<DynamicModelField>  commonModel = SampleDynamicModelBuilder.buildNestedMapping03();
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedMapping03();
         System.out.println("------------commonModel---------------");
         System.out.println(JSON.toIndentJsonString(commonModel));
 //
@@ -593,7 +593,6 @@ public class DataMapperTest {
         System.out.println(JSON.toIndentJsonString(destNode));
 
     }
-
 
     @Test
     public void testStr2Array() {
@@ -616,5 +615,64 @@ public class DataMapperTest {
         Assert.assertEquals(1, destNode.get("addressInfo").size());
     }
 
+    @Test
+    public void testSimpleMapping() {
+        ObjectNode sourceNode1 = SampleObjectNodeDataBuilder.buildConditionConvert03("20");
+        System.out.println("------------sourceNode1---------------");
+        System.out.println(JSON.toIndentJsonString(sourceNode1));
+
+
+        List<DynamicModelMapping> mappings = SampleCommonModelMappingBuilder.buildSimpleConditionConvert01();
+        System.out.println("------------mappings---------------");
+        System.out.println(JSON.toIndentJsonString(mappings));
+
+        Object destNode1 = DataMapper.simpleMapping(sourceNode1, String.class, mappings, false);
+        System.out.println("------------destNode1---------------");
+        System.out.println(JSON.toIndentJsonString(destNode1));
+
+    }
+
+    @Test
+    public void testSimpleMappingNumber() {
+        testSimpleMappingNumberItem(Integer.class);
+        testSimpleMappingNumberItem(Long.class);
+        testSimpleMappingNumberItem(Double.class);
+        testSimpleMappingNumberItem(Float.class);
+
+    }
+
+    public void testSimpleMappingNumberItem(Class clazz) {
+        ObjectNode sourceNode1 = SampleObjectNodeDataBuilder.buildTestObjectNode();
+        System.out.println("------------sourceNode1---------------");
+        System.out.println(JSON.toIndentJsonString(sourceNode1));
+
+
+        List<DynamicModelMapping> mappings = SampleCommonModelMappingBuilder.buildSimpleDefault();
+        System.out.println("------------mappings---------------");
+        System.out.println(JSON.toIndentJsonString(mappings));
+
+        Object destNode1 = DataMapper.simpleMapping(sourceNode1, clazz, mappings, false);
+        System.out.println("------------destNode1---------------");
+        System.out.println(JSON.toIndentJsonString(destNode1));
+        System.out.println("================================================");
+
+    }
+
+    @Test
+    public void testSimpleMappingBool() {
+        ObjectNode sourceNode1 = SampleObjectNodeDataBuilder.buildTestObjectNode();
+        System.out.println("------------sourceNode1---------------");
+        System.out.println(JSON.toIndentJsonString(sourceNode1));
+
+
+        List<DynamicModelMapping> mappings = SampleCommonModelMappingBuilder.buildSimpleDefault02();
+        System.out.println("------------mappings---------------");
+        System.out.println(JSON.toIndentJsonString(mappings));
+
+        Object destNode1 = DataMapper.simpleMapping(sourceNode1, Boolean.class, mappings, false);
+        System.out.println("------------destNode1---------------");
+        System.out.println(JSON.toIndentJsonString(destNode1));
+
+    }
 
 }

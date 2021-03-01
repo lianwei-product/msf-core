@@ -1,16 +1,15 @@
 package cn.com.connext.msf.framework.mapping;
 
-import cn.com.connext.msf.framework.dynamic.CommonModel;
-import cn.com.connext.msf.framework.dynamic.CommonModelField;
-import cn.com.connext.msf.framework.dynamic.DynamicModel;
-import cn.com.connext.msf.framework.dynamic.DynamicModelField;
+import cn.com.connext.msf.framework.dynamic.*;
 import cn.com.connext.msf.framework.mapping.model.CurrentArray;
 import cn.com.connext.msf.framework.mapping.model.CurrentNode;
 import cn.com.connext.msf.framework.utils.JsonNodeTypeValidator;
+import cn.com.connext.msf.framework.utils.ObjectNodeUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -27,10 +26,24 @@ public class DataMapper {
         return mapping(sourceNode, targetModel, mappings, true);
     }
 
+
     public static ObjectNode mapping(ObjectNode sourceNode, DynamicModel targetModel, List<? extends DynamicModelMapping> mappings, boolean doValid) {
         Map<String, DynamicModelMapping> fieldMap = initFieldMap(mappings);
         CommonModel commonModel = (CommonModel) targetModel.convert(CommonModel.class);
         return mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), commonModel.getFields(), doValid);
+    }
+
+    public static Object simpleMapping(ObjectNode sourceNode, Class targetModel, List<? extends DynamicModelMapping> mappings, boolean doValid) {
+        Map<String, DynamicModelMapping> fieldMap = initFieldMap(mappings);
+        List<CommonModelField> targetModelFieldList = Lists.newArrayList();
+
+        CommonModelField field = new CommonModelField();
+        field.setName("result");
+        field.setType(DynamicModelFieldType.fromClass(targetModel));
+        targetModelFieldList.add(field);
+
+        ObjectNode mapping = mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), targetModelFieldList, doValid);
+        return ObjectNodeUtil.getObject(mapping, "result", targetModel);
     }
 
     private static Map<String, DynamicModelMapping> initFieldMap(List<? extends DynamicModelMapping> mappings) {
@@ -166,7 +179,7 @@ public class DataMapper {
             return CurrentNode.from(dataModelField, dataModelMapping, null, null);
         } else if (dataModelMapping.getMappingType().equals(DynamicFieldMappingType.FROM_MULTI_SOURCE_FIELD)) {
             return CurrentNode.from(dataModelField, dataModelMapping, sourceNode, null);
-        }else if (dataModelMapping.getMappingType().equals(DynamicFieldMappingType.CONDITION_EXP)) {
+        } else if (dataModelMapping.getMappingType().equals(DynamicFieldMappingType.CONDITION_EXP)) {
             return CurrentNode.from(dataModelField, dataModelMapping, sourceNode, null);
         }
 

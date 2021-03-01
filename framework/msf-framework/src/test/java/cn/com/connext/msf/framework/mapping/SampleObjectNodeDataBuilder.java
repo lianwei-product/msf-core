@@ -14,6 +14,7 @@ public class SampleObjectNodeDataBuilder {
         member.put("realName", "ChengHan");
         member.put("gender", "男");
         member.put("mobile", "13770655999");
+        member.put("isok", true);
 
         ArrayNode telephones = objectMapper.createArrayNode();
         telephones.add("1377065599");

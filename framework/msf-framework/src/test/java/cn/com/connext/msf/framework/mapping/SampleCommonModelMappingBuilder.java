@@ -3,7 +3,6 @@ package cn.com.connext.msf.framework.mapping;
 import cn.com.connext.msf.framework.mapping.model.AviatorModel;
 import cn.com.connext.msf.framework.mapping.model.DictModel;
 import cn.com.connext.msf.framework.mapping.model.MultiSourceFieldModel;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.type.AviatorObject;
 import com.googlecode.aviator.runtime.type.AviatorString;
@@ -168,7 +167,8 @@ public class SampleCommonModelMappingBuilder {
                 builder.buildFromSourceField(supplier, "addressInfo.city", "addressInfo.city")
         );
     }
-   public static List<DynamicModelMapping> buildNestedMapping04() {
+
+    public static List<DynamicModelMapping> buildNestedMapping04() {
         return Lists.newArrayList(
                 builder.buildFromSourceField(supplier, "addressInfo.province", "province"),
                 builder.buildFromSourceField(supplier, "addressInfo.city", "city")
@@ -181,6 +181,25 @@ public class SampleCommonModelMappingBuilder {
         );
     }
 
+    public static List<DynamicModelMapping> buildSimpleConditionConvert01() {
+        AviatorModel aviatorModel = new AviatorModel.Builder("level(name.level)").
+                addFunctions(new LevelTransfer()).build();
+        return Lists.newArrayList(
+                builder.buildConditionExp(supplier, "result", "name.level", aviatorModel)
+        );
+    }
+
+    public static List<DynamicModelMapping> buildSimpleDefault() {
+        return Lists.newArrayList(
+                builder.buildFromSourceField(supplier, "result", "activeScore")
+        );
+    }
+
+    public static List<DynamicModelMapping> buildSimpleDefault02() {
+        return Lists.newArrayList(
+                builder.buildFromSourceField(supplier, "result", "isok")
+        );
+    }
 
     static class LevelTransfer extends AbstractFunction {
 
@@ -207,5 +226,6 @@ public class SampleCommonModelMappingBuilder {
             return "level";
         }
     }
+
 
 }

@@ -21,6 +21,22 @@ import java.util.Optional;
  */
 public class ObjectNodeUtil {
 
+    public static Object getObject(JsonNode node, String field, Class clazz) {
+        if (clazz.equals(String.class)) {
+        } else if (clazz.equals(Integer.class)) {
+            return getInt(node, field);
+        } else if (clazz.equals(Long.class)) {
+            return getLong(node, field);
+        } else if (clazz.equals(Float.class)) {
+            return getDouble(node, field);
+        } else if (clazz.equals(Double.class)) {
+            return getDouble(node, field);
+        } else if (clazz.equals(Boolean.class)) {
+            return getBoolean(node, field);
+        }
+        return getString(node, field);
+    }
+
     public static ObjectNode delNodeByField(ObjectNode node, String field) {
         try {
             ObjectNode tmp = null;
@@ -50,7 +66,6 @@ public class ObjectNodeUtil {
             throw new BusinessException("del node by field error" + e);
         }
     }
-
 
     public static String getString(JsonNode node, String field) {
         Optional<JsonNode> optionalJsonNode = commonOptional(node, field);
