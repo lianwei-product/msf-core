@@ -21,20 +21,20 @@ import java.util.Optional;
  */
 public class ObjectNodeUtil {
 
-    public static Object getObject(JsonNode node, String field, Class clazz) {
+    public static <T> T getObject(JsonNode node, String field, Class<T> clazz) {
         if (clazz.equals(String.class)) {
         } else if (clazz.equals(Integer.class)) {
-            return getInt(node, field);
+            return (T) getInt(node, field);
         } else if (clazz.equals(Long.class)) {
-            return getLong(node, field);
+            return (T) getLong(node, field);
         } else if (clazz.equals(Float.class)) {
-            return getDouble(node, field);
+            return (T) getDouble(node, field);
         } else if (clazz.equals(Double.class)) {
-            return getDouble(node, field);
+            return (T) getDouble(node, field);
         } else if (clazz.equals(Boolean.class)) {
-            return getBoolean(node, field);
+            return (T) getBoolean(node, field);
         }
-        return getString(node, field);
+        return (T) getString(node, field);
     }
 
     public static ObjectNode delNodeByField(ObjectNode node, String field) {
