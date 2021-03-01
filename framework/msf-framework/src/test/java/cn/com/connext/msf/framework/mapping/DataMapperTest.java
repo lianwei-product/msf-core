@@ -616,7 +616,7 @@ public class DataMapperTest {
     }
 
     @Test
-    public void testSimpleMapping() {
+    public void testSimpleMappingCondition() {
         ObjectNode sourceNode1 = SampleObjectNodeDataBuilder.buildConditionConvert03("20");
         System.out.println("------------sourceNode1---------------");
         System.out.println(JSON.toIndentJsonString(sourceNode1));
