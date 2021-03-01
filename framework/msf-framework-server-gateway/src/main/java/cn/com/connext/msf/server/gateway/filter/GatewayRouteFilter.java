@@ -52,11 +52,12 @@ public class GatewayRouteFilter extends ZuulFilter {
         String method = request.getMethod();
 
         Route route = routeLocator.preGetMatchingRoute(uri);
-        requestContext.set(RequestTraceVariables.CURRENT_ROUTE, route);
+        if (route != null) {
+            requestContext.set(RequestTraceVariables.CURRENT_ROUTE, route);
 
-        HashMap<String, GatewayRouteRule> uriMethodMap = getUriMethodMap(route, uri, method);
-        requestContext.set(RequestTraceVariables.URI_METHOD_MAP, uriMethodMap);
-
+            HashMap<String, GatewayRouteRule> uriMethodMap = getUriMethodMap(route, uri, method);
+            requestContext.set(RequestTraceVariables.URI_METHOD_MAP, uriMethodMap);
+        }
         return null;
     }
 
@@ -68,9 +69,9 @@ public class GatewayRouteFilter extends ZuulFilter {
 
     private HashMap<String, GatewayRouteRule> getUriMethodMap(Route route, String uri, String method) {
         lock.readLock().lock();
-        GatewayRoute gatewayRoute = gatewayRouteMap.get(route.getId());
 
         try {
+            GatewayRoute gatewayRoute = gatewayRouteMap.get(route.getId());
             if (gatewayRoute != null) {
                 HashMap<String, GatewayRouteRule> allowedMethodMap = gatewayRoute.getMethodRuleMap(uri, method);
                 if (allowedMethodMap != null) {

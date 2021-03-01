@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -74,7 +75,12 @@ public class GatewayAuthFilter extends ZuulFilter {
         HashMap<String, GatewayRouteRule> allowedMethodMap = getUriMethodMap(requestContext);
 
         if (allowedMethodMap == null) {
-            return responseError(requestContext, 404);
+            responseError(requestContext, 404);
+            try {
+                requestContext.getResponse().flushBuffer();
+            } catch (IOException e) {
+            }
+            return null;
         }
 
         if (!allowedMethodMap.containsKey("*") && !allowedMethodMap.containsKey(request.getMethod())) {
@@ -103,8 +109,17 @@ public class GatewayAuthFilter extends ZuulFilter {
             }
         }
 
-        addJwtHeader(requestContext, tenantId, clientType, clientId);
+        // 获取当前token过期时间
+        if (claims != null) {
+            long tokenExpireTime = Long.parseLong(claims.get("exp").toString()) * 1000;
+            if (expiredTokenCache.expired(clientId, tokenExpireTime)) {
+                tenantId = null;
+                clientType = null;
+                clientId = null;
+            }
+        }
 
+        addJwtHeader(requestContext, tenantId, clientType, clientId);
 
         String authority = allowedMethodMap.get(request.getMethod()).getAuthority();
         if (authority == null) {    // 公开接口方法，无需鉴权
@@ -119,7 +134,6 @@ public class GatewayAuthFilter extends ZuulFilter {
             return responseError(requestContext, 401);
         }
 
-        // 获取当前token过期时间
         long tokenExpireTime = Long.parseLong(claims.get("exp").toString()) * 1000;
         if (expiredTokenCache.expired(clientId, tokenExpireTime)) {
             return responseError(requestContext, 401);
@@ -130,7 +144,7 @@ public class GatewayAuthFilter extends ZuulFilter {
             if (System.currentTimeMillis() > refreshBefore) {
                 JwtCookieInfo jwtCookieInfo = gatewayAuthClient.refreshToken(jwtString);
                 if (jwtCookieInfo != null) {
-                    Cookie cookie = JsonWebTokenCookieBuilder.buildCookie(jwtCookieInfo.getDomain(), jwtCookieInfo.getJwtToken(),isSecure);
+                    Cookie cookie = JsonWebTokenCookieBuilder.buildCookie(jwtCookieInfo.getDomain(), jwtCookieInfo.getJwtToken(), isSecure);
                     requestContext.getResponse().addCookie(cookie);
                 }
             }
