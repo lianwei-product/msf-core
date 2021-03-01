@@ -14,27 +14,32 @@ import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 public class DataMapper {
     private static Logger logger = LoggerFactory.getLogger(DataMapper.class);
+    private static CommonModelMappingBuilder<CommonModelMapping> builder = new CommonModelMappingBuilder();
+    private static Supplier<CommonModelMapping> supplier = () -> new CommonModelMapping();
 
     public static ObjectNode mapping(ObjectNode sourceNode, DynamicModel targetModel, List<? extends DynamicModelMapping> mappings) {
         return mapping(sourceNode, targetModel, mappings, true);
     }
 
-
     public static ObjectNode mapping(ObjectNode sourceNode, DynamicModel targetModel, List<? extends DynamicModelMapping> mappings, boolean doValid) {
-        Map<String, DynamicModelMapping> fieldMap = initFieldMap(mappings);
         CommonModel commonModel = (CommonModel) targetModel.convert(CommonModel.class);
-        return mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), commonModel.getFields(), doValid);
+        List<CommonModelField> fields = commonModel.getFields();
+        Map<String, DynamicModelMapping> fieldMap = initFieldMap(mappings, fields);
+        return mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), fields, doValid);
     }
 
-    public static Object simpleMapping(ObjectNode sourceNode, Class targetModel, List<? extends DynamicModelMapping> mappings, boolean doValid) {
-        Map<String, DynamicModelMapping> fieldMap = initFieldMap(mappings);
+    public static <T extends DynamicModelMapping> Object simpleMapping(ObjectNode sourceNode, Class targetModel, T mapping, boolean doValid) {
+        Map<String, DynamicModelMapping> fieldMap = initFieldMap(Lists.newArrayList(mapping));
         List<CommonModelField> targetModelFieldList = Lists.newArrayList();
 
         CommonModelField field = new CommonModelField();
@@ -42,8 +47,8 @@ public class DataMapper {
         field.setType(DynamicModelFieldType.fromClass(targetModel));
         targetModelFieldList.add(field);
 
-        ObjectNode mapping = mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), targetModelFieldList, doValid);
-        return ObjectNodeUtil.getObject(mapping, "result", targetModel);
+        ObjectNode result = mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), targetModelFieldList, doValid);
+        return ObjectNodeUtil.getObject(result, "result", targetModel);
     }
 
     private static Map<String, DynamicModelMapping> initFieldMap(List<? extends DynamicModelMapping> mappings) {
@@ -54,6 +59,40 @@ public class DataMapper {
             }
         });
         return fieldMap;
+    }
+
+    private static Map<String, DynamicModelMapping> initFieldMap(List<? extends DynamicModelMapping> mappings, List<CommonModelField> fields) {
+        Map<String, DynamicModelMapping> fieldMap = Maps.newHashMap();
+        mappings.forEach(mapping -> {
+            if (!Objects.equals(DynamicFieldMappingType.NO_MAPPING, mapping.getMappingType())) {
+                Optional<CommonModelField> first = fields.stream().filter(x -> x.getName().equals(mapping.getDestFieldName()) && x.getType() == DynamicModelFieldType.NESTED).findFirst();
+                if (mapping.getMappingType() == DynamicFieldMappingType.FROM_SOURCE_FIELD && first.isPresent()
+                        ) {
+                    CommonModelField field = first.get();
+                    initFieldMapItem("", field, fieldMap);
+                } else {
+                    fieldMap.put(mapping.getDestFieldName(), mapping);
+                }
+            }
+        });
+        return fieldMap;
+    }
+
+    private static void initFieldMapItem(String prefix, CommonModelField field, Map<String, DynamicModelMapping> fieldMap) {
+        if (StringUtils.isBlank(prefix)) {
+            String fieldName = field.getName();
+            CommonModelMapping mapping = builder.buildFromSourceField(supplier, fieldName);
+            fieldMap.put(fieldName, mapping);
+        } else {
+
+        }
+
+        // TODO: 2021/3/1
+        if (!CollectionUtils.isEmpty(field.getFields())) {
+            field.getFields().forEach(x ->
+                    initFieldMapItem(prefix, x, fieldMap)
+            );
+        }
     }
 
     private static ObjectNode mapping(Map<String, DynamicModelMapping> fieldMap, ObjectNode sourceNode, ObjectNode destNode, List<CommonModelField> targetModelFieldList, boolean doValid) {

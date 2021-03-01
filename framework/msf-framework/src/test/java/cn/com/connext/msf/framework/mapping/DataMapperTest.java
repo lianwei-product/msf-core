@@ -626,7 +626,7 @@ public class DataMapperTest {
         System.out.println("------------mappings---------------");
         System.out.println(JSON.toIndentJsonString(mappings));
 
-        Object destNode1 = DataMapper.simpleMapping(sourceNode1, String.class, mappings, false);
+        Object destNode1 = DataMapper.simpleMapping(sourceNode1, String.class, mappings.get(0), false);
         System.out.println("------------destNode1---------------");
         System.out.println(JSON.toIndentJsonString(destNode1));
 
@@ -651,7 +651,7 @@ public class DataMapperTest {
         System.out.println("------------mappings---------------");
         System.out.println(JSON.toIndentJsonString(mappings));
 
-        Object destNode1 = DataMapper.simpleMapping(sourceNode1, clazz, mappings, false);
+        Object destNode1 = DataMapper.simpleMapping(sourceNode1, clazz, mappings.get(0), false);
         System.out.println("------------destNode1---------------");
         System.out.println(JSON.toIndentJsonString(destNode1));
         System.out.println("================================================");
@@ -669,7 +669,7 @@ public class DataMapperTest {
         System.out.println("------------mappings---------------");
         System.out.println(JSON.toIndentJsonString(mappings));
 
-        Object destNode1 = DataMapper.simpleMapping(sourceNode1, Boolean.class, mappings, false);
+        Object destNode1 = DataMapper.simpleMapping(sourceNode1, Boolean.class, mappings.get(0), false);
         System.out.println("------------destNode1---------------");
         System.out.println(JSON.toIndentJsonString(destNode1));
 
