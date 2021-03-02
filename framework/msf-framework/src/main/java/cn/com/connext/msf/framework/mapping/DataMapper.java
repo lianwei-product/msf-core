@@ -34,7 +34,7 @@ public class DataMapper {
     public static ObjectNode mapping(ObjectNode sourceNode, DynamicModel targetModel, List<? extends DynamicModelMapping> mappings, boolean doValid) {
         CommonModel commonModel = (CommonModel) targetModel.convert(CommonModel.class);
         List<CommonModelField> fields = commonModel.getFields();
-        Map<String, DynamicModelMapping> fieldMap = initFieldMap(mappings, fields);
+        Map<String, DynamicModelMapping> fieldMap = initFieldMap(mappings);
         return mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), fields, doValid);
     }
 
@@ -61,6 +61,7 @@ public class DataMapper {
         return fieldMap;
     }
 
+    @Deprecated
     private static Map<String, DynamicModelMapping> initFieldMap(List<? extends DynamicModelMapping> mappings, List<CommonModelField> fields) {
         Map<String, DynamicModelMapping> fieldMap = Maps.newHashMap();
         mappings.forEach(mapping -> {
@@ -79,6 +80,7 @@ public class DataMapper {
         return fieldMap;
     }
 
+    @Deprecated
     private static void initFieldMapItem(String prefix, CommonModelField field, Map<String, DynamicModelMapping> fieldMap) {
         if (!CollectionUtils.isEmpty(field.getFields())) {
             prefix = prefix.equals("") ? field.getName() : prefix + "." + field.getName();
@@ -133,8 +135,14 @@ public class DataMapper {
     }
 
     private static JsonNode mappingNestedNode(Map<String, DynamicModelMapping> fieldMap, CommonModelField field, ObjectNode sourceNode, String destPrefix, String sourcePrefix, boolean doValid) {
+        String fieldName = field.getName();
+        DynamicModelMapping mapping = fieldMap.get(fieldName);
+        if (null != mapping && mapping.getMappingType() == DynamicFieldMappingType.FROM_SOURCE_FIELD) {
+            return sourceNode.get(fieldName);
+        }
+
         List<CommonModelField> dynamicModelFieldList = field.getFields();
-        destPrefix = destPrefix.equals("") ? field.getName() : destPrefix + "." + field.getName();
+        destPrefix = destPrefix.equals("") ? fieldName : destPrefix + "." + fieldName;
         if (field.isArrayType()) {
             ArrayNode arrayNode = JsonNodeFactory.instance.arrayNode();
             CurrentArray currentArray = getCurrentArray(fieldMap, sourceNode, dynamicModelFieldList, destPrefix, sourcePrefix);
