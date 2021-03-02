@@ -38,7 +38,7 @@ public class DataMapper {
         return mapping(fieldMap, sourceNode, JsonNodeFactory.instance.objectNode(), fields, doValid);
     }
 
-    public static <T extends DynamicModelMapping> Object simpleMapping(ObjectNode sourceNode, Class targetModel, T mapping, boolean doValid) {
+    public static <T extends DynamicModelMapping, S> S simpleMapping(ObjectNode sourceNode, Class<S> targetModel, T mapping, boolean doValid) {
         Map<String, DynamicModelMapping> fieldMap = initFieldMap(Lists.newArrayList(mapping));
         List<CommonModelField> targetModelFieldList = Lists.newArrayList();
 
