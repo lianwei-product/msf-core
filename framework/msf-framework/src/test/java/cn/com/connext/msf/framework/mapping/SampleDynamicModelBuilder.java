@@ -152,6 +152,21 @@ public class SampleDynamicModelBuilder {
         );
     }
 
+    public static DynamicModel<DynamicModelField> buildNestedMapping06() {
+        CdpDataModelField addressInfo = CdpDataModelField.from(fieldSupplier, "addressInfo", "addressInfo", DynamicModelFieldType.NESTED, null);
+        CdpDataModelField province = CdpDataModelField.from(fieldSupplier, "province", "province");
+        CdpDataModelField city = CdpDataModelField.from(fieldSupplier, "city", "city", DynamicModelFieldType.NESTED, null);
+        CdpDataModelField town = CdpDataModelField.from(fieldSupplier, "town", "town", DynamicModelFieldType.NESTED, null);
+        CdpDataModelField detail = CdpDataModelField.from(fieldSupplier, "detail", "detail");
+        town.setFields(Lists.newArrayList(detail));
+        city.setFields(Lists.newArrayList(town));
+        addressInfo.setFields(Lists.newArrayList(province, city));
+        addressInfo.setArrayType(true);
+        return CommonMappingModelBuilder.build(new CommonMappingModelBuilder.Builder()
+                .addModelField(addressInfo)
+        );
+    }
+
     public static DynamicModel<DynamicModelField> buildStr2Array() {
         CdpDataModelField addressInfo = CdpDataModelField.from(fieldSupplier, "addressInfo", "addressInfo", DynamicModelFieldType.NESTED, null);
         CdpDataModelField province = CdpDataModelField.from(fieldSupplier, "province", "province");

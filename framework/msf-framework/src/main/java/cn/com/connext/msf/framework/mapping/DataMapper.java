@@ -70,6 +70,7 @@ public class DataMapper {
                         ) {
                     CommonModelField field = first.get();
                     initFieldMapItem("", field, fieldMap);
+                    fieldMap.remove(mapping.getDestFieldName());
                 } else {
                     fieldMap.put(mapping.getDestFieldName(), mapping);
                 }
@@ -79,19 +80,20 @@ public class DataMapper {
     }
 
     private static void initFieldMapItem(String prefix, CommonModelField field, Map<String, DynamicModelMapping> fieldMap) {
-        if (StringUtils.isBlank(prefix)) {
-            String fieldName = field.getName();
+        if (!CollectionUtils.isEmpty(field.getFields())) {
+            prefix = prefix.equals("") ? field.getName() : prefix + "." + field.getName();
+            for (CommonModelField commonModelField : field.getFields()) {
+                initFieldMapItem(prefix, commonModelField, fieldMap);
+            }
+        } else {
+            String fieldName = "";
+            if (StringUtils.isBlank(prefix)) {
+                fieldName = field.getName();
+            } else {
+                fieldName = prefix + "." + field.getName();
+            }
             CommonModelMapping mapping = builder.buildFromSourceField(supplier, fieldName);
             fieldMap.put(fieldName, mapping);
-        } else {
-
-        }
-
-        // TODO: 2021/3/1
-        if (!CollectionUtils.isEmpty(field.getFields())) {
-            field.getFields().forEach(x ->
-                    initFieldMapItem(prefix, x, fieldMap)
-            );
         }
     }
 

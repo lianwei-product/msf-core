@@ -595,6 +595,45 @@ public class DataMapperTest {
     }
 
     @Test
+    public void testNestMapping05() {
+        ObjectNode sourceNode = SampleObjectNodeDataBuilder.buildNestedMapping01();
+        System.out.println("------------sourceNode---------------");
+        System.out.println(JSON.toIndentJsonString(sourceNode));
+
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedMapping03();
+        System.out.println("------------commonModel---------------");
+        System.out.println(JSON.toIndentJsonString(commonModel));
+//
+        List<DynamicModelMapping> mappings = SampleCommonModelMappingBuilder.buildNestedMapping05();
+        System.out.println("------------mappings---------------");
+        System.out.println(JSON.toIndentJsonString(mappings));
+
+        ObjectNode destNode = DataMapper.mapping(sourceNode, commonModel, mappings);
+        System.out.println("------------destNode---------------");
+        System.out.println(JSON.toIndentJsonString(destNode));
+
+    }
+    @Test
+    public void testNestMapping06() {
+        ObjectNode sourceNode = SampleObjectNodeDataBuilder.buildNestedMapping06();
+        System.out.println("------------sourceNode---------------");
+        System.out.println(JSON.toIndentJsonString(sourceNode));
+
+        DynamicModel<DynamicModelField> commonModel = SampleDynamicModelBuilder.buildNestedMapping06();
+        System.out.println("------------commonModel---------------");
+        System.out.println(JSON.toIndentJsonString(commonModel));
+//
+        List<DynamicModelMapping> mappings = SampleCommonModelMappingBuilder.buildNestedMapping05();
+        System.out.println("------------mappings---------------");
+        System.out.println(JSON.toIndentJsonString(mappings));
+
+        ObjectNode destNode = DataMapper.mapping(sourceNode, commonModel, mappings);
+        System.out.println("------------destNode---------------");
+        System.out.println(JSON.toIndentJsonString(destNode));
+
+    }
+
+    @Test
     public void testStr2Array() {
         ObjectNode sourceNode = SampleObjectNodeDataBuilder.buildStr2Array();
         System.out.println("------------sourceNode---------------");
@@ -674,5 +713,6 @@ public class DataMapperTest {
         System.out.println(JSON.toIndentJsonString(destNode1));
 
     }
+
 
 }

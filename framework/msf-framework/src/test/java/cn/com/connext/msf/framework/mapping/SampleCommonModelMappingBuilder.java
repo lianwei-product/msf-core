@@ -175,6 +175,12 @@ public class SampleCommonModelMappingBuilder {
         );
     }
 
+    public static List<DynamicModelMapping> buildNestedMapping05() {
+        return Lists.newArrayList(
+                builder.buildFromSourceField(supplier, "addressInfo")
+        );
+    }
+
     public static List<DynamicModelMapping> buildStr2Array() {
         return Lists.newArrayList(
                 builder.buildFromSourceField(supplier, "addressInfo.province", "province")

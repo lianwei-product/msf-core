@@ -224,6 +224,37 @@ public class SampleObjectNodeDataBuilder {
         return item1;
     }
 
+    public static ObjectNode buildNestedMapping06() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        ArrayNode addressInfo = objectMapper.createArrayNode();
+        ObjectNode item1 = JsonNodeFactory.instance.objectNode();
+        item1.put("type", "Home");
+        item1.put("province", "江苏");
+        ObjectNode city1 = JsonNodeFactory.instance.objectNode();
+        ObjectNode town1 = JsonNodeFactory.instance.objectNode();
+        town1.put("detail", "南京江宁区");
+        city1.set("town", town1);
+        item1.set("city", city1);
+
+        ObjectNode item2 = JsonNodeFactory.instance.objectNode();
+        item2.put("type", "work");
+        item2.put("province", "安徽");
+        ObjectNode city2 = JsonNodeFactory.instance.objectNode();
+        ObjectNode town2 = JsonNodeFactory.instance.objectNode();
+        town2.put("detail", "芜湖鸠江区");
+        city2.set("town", town2);
+        item2.set("city", city2);
+
+        addressInfo.add(item1);
+        addressInfo.add(item2);
+
+        ObjectNode name = JsonNodeFactory.instance.objectNode();
+        name.set("addressInfo", addressInfo);
+        name.put("gender", "女");
+        return name;
+    }
+
     public static ObjectNode buildStr2Array() {
         ObjectNode item1 = JsonNodeFactory.instance.objectNode();
         item1.put("province", "江蘇省,浙江省");
